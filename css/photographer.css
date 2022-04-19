@@ -1,11 +1,132 @@
-#contact_modal {
-    display: none;
+main {
+    position: relative;
 }
 
+/* css block photographers informations */
 .photograph-header {
+    display: flex;
+    justify-content: space-between;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    align-items: center;
+    padding: 0 60px;
+}
+
+.photograph-header .photographer-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.photograph-header .photographer-text h1 {
+    color: #D3573C;
+    font-size: 64px;
+    margin: 0;
+}
+
+.photograph-header .photographer-text h2 {
+    color: #901C1C;
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.photograph-header .photographer-text p {
+    color: #525252;
+    font-size: 20px;
+}
+
+.photograph-header .photographer-text .price {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #D3573C;
+    padding: 15px 30px;
+    color: #000;
+    width: 170px;
+    margin-right: 60px;
+    border-radius: 5px;
+}
+
+.photograph-header .photographer-img img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/* <====== section media ======>*/
+
+.photographer_media_section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 100px;
+    grid-gap: 110px;
+}
+
+.photographer_media_section .medial-container {
+    height: 350px;
+    cursor: pointer;
+}
+
+.medial-container div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: #901C1C;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.medial-container div span {
+    display: flex;
+}
+
+.medial-container div span i {
+    margin-left: 8px;
+}
+
+.photographer_media_section .medial-container video, .photographer_media_section .medial-container img {
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* filter */
+
+.filter-media {
+    margin: 20px 100px 40px;
+    font-size: 17px;
+}
+
+.filter-media label {
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.filter-media select {
+    border-radius: 5px;
+    background-color: #901C1C;
+    color: #fff;
+    padding: 0 10px;
+    /* text-indent: 10px; */
+    outline: none;
+}
+
+/* Modal media */
+#contact_modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(143, 142, 142, 0.4);
 }
 
 .contact_button {
@@ -22,17 +143,21 @@
 }
 
 .modal {
+    position: absolute;
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 35px;
     margin: auto;
+    animation-name: modalAnimation;
 }
-
+.modal h1 {
+    color: #000;
+}
 .modal header {
     justify-content: space-between;
     width: 100%;
@@ -43,9 +168,10 @@
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 40px;
     font-weight: normal;
     text-align: center;
+    text-align: left;
 }
 
 form {
@@ -57,7 +183,8 @@ form {
 
 form label {
     color: #312E2E;
-    font-size: 36px;
+    font-size: 26px;
+    margin-bottom: 5px;
 }
 
 form div {
@@ -69,8 +196,27 @@ form div {
 }
 
 form input {
+    height: 50px;
+}
+
+form textarea {
+    resize: none;
+}
+
+form input, form textarea {
     width: 100%;
-    height: 68px;
     border: none;
     border-radius: 5px;
+    outline: none;
+}
+
+@keyframes modalAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-150px);
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
