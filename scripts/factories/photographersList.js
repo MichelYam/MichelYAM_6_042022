@@ -17,7 +17,7 @@ function photographerMediaList(media, photographerName) {
     return media.map((media) => (`
         <div class="medial-container">
                 ${media.video == undefined ?
-            `<img src="./assets/images/media/${photographerName}/${media.image}" alt="${photographerName} ${media.image}" />`
+            `<img onclick="displayLigthModal(${media.id})" src="./assets/images/media/${photographerName}/${media.image}" alt="${photographerName} ${media.image}" />`
             :
             `<video controls>
                     <source src="../assets/images/media/${photographerName}/${media.video}" type="video/webm" />

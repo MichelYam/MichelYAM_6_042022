@@ -71,38 +71,11 @@ filter.addEventListener("change", async function () {
             const filterByDate = photographerMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
             // console.log(filterByDate);
             getUserMedias(filterByDate, photographerName);
-
             break;
         case "title":
             const filterByTitle = photographerMedia.sort((a, b) => a.title < b.title ? -1 : 1);
             // console.log(filterByTitle);
             getUserMedias(filterByTitle, photographerName);
-
             break;
     }
 })
-
-
-
-// let list = document.querySelectorAll('.list');
-// let itemBox = document.querySelectorAll('.itemBox');
-
-// for (let i = 0; i < list.length; i++) {
-//     list[i].addEventListener('click', function () {
-//         for (let j = 0; j < list.length; j++) {
-//             list[j].classList.remove('active')
-//         }
-//         this.classList.add('active');
-
-//         let dataFilter = this.getAttribute('data-filter')
-
-//         for (let k = 0; k < itemBox.length; k++) {
-//             itemBox[k].classList.remove("active")
-//             itemBox[k].classList.add("hide")
-//             if (itemBox[k].getAttribute('data-item') == dataFilter || dataFilter == 'all') {
-//                 itemBox[k].classList.remove("hide")
-//                 itemBox[k].classList.add("active")
-//             }
-//         }
-//     })
-// }

@@ -36,8 +36,10 @@
   <div id="contact_modal">
     <div class="modal">
       <header>
-        <h1>Contactez-moi</h1>
-        <p id="user-name"></p>
+        <div>
+          <h1>Contactez-moi</h1>
+          <p id="user-name"></p>
+        </div>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>
@@ -61,9 +63,26 @@
       </form>
     </div>
   </div>
+
+
+  <!-- lightbox modal -->
+  <div id="lightbox_modal" class="lightbox">
+    <div class="carrousel">
+      <div class="close" onclick="closeLightModal()"></div>
+      <div class="caroussel-content">
+        <div class="carrousel-img">
+          <img src="./assets/images/media/Marcel/Architecture_Dome.jpg" alt="test">
+          <h2>${title}</h2>
+        </div>
+        <div class="carousel__button--next"></div>
+        <div class="carousel__button--prev"></div>
+      </div>
+    </div>
+  </div>
   <script src="scripts/factories/photographersList.js"></script>
   <script src="scripts/pages/photographer.js"></script>
   <script src="/scripts/utils/contactForm.js"></script>
+  <script src="/scripts/utils/carrousel.js"></script>
 </body>
 
 </html>
