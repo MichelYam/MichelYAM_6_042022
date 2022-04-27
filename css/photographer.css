@@ -214,9 +214,8 @@ form input, form textarea {
 
 
 /* Caroussel */
-.ligthbox {
-    display: block;
-    /* display: none; */
+.lightbox {
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -226,7 +225,7 @@ form input, form textarea {
     background-color: rgba(143, 142, 142, 0.4);
 }
 
-.ligthbox .carrousel {
+.lightbox .carrousel {
     position: absolute;
     background-color: #fff;
     width: 100%;
@@ -268,7 +267,7 @@ form input, form textarea {
     transform: rotate(-45deg);
 }
 
-.ligthbox .carrousel .caroussel-content {
+.lightbox .carrousel .caroussel-content {
     width: 100%;
     height: 100%;
     display: flex;
@@ -276,12 +275,12 @@ form input, form textarea {
     align-items: center;
 }
 
-.ligthbox .carrousel .caroussel-content .carrousel-img {
+.lightbox .carrousel .caroussel-content .carrousel-img {
     width: 100%;
     height: 100%;
 }
 
-.ligthbox .carrousel .caroussel-content .carrousel-img img {
+.lightbox .carrousel .caroussel-content .carrousel-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;

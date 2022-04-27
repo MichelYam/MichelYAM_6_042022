@@ -32,20 +32,23 @@ displayUserData()
 
 
 // <----- media ----->
-
+const getUserMediaByID = async (userID) => {
+    const { media } = await getPhotographers();
+    const photographerMedia = media.filter(element => element.photographerId == userID);
+    return photographerMedia;
+}
 // get structure HTML of the user
 const getUserMedias = async (photographerMedia, photographerName) => {
     const mediaSection = document.querySelector(".photographer_media_section");
-    console.log(photographerMedia)
     mediaSection.innerHTML = photographerMediaList(photographerMedia, photographerName);
 }
 
 // display data of the user
 const displayUserMedias = async () => {
-    const { photographers, media } = await getPhotographers();
-    const user_id = getIdOfUser();
-    const photographerName = photographers.find(element => element.id == user_id).name.split(' ')[0].replace("-", " ");
-    const photographerMedia = media.filter(element => element.photographerId == user_id);
+    const { photographers } = await getPhotographers();
+    const userID = getIdOfUser();
+    const photographerMedia = await getUserMediaByID(userID);
+    const photographerName = photographers.find(element => element.id == userID).name.split(' ')[0].replace("-", " ");
     getUserMedias(photographerMedia, photographerName);
 
 }
@@ -55,12 +58,14 @@ displayUserMedias()
 // Filter
 
 const filter = document.getElementById("media-select");
+const getFilterByDate = () => {
 
+}
 filter.addEventListener("change", async function () {
-    const { photographers, media } = await getPhotographers();
-    const user_id = getIdOfUser();
-    const photographerName = photographers.find(element => element.id == user_id).name.split(' ')[0].replace("-", " ");
-    const photographerMedia = media.filter(element => element.photographerId == user_id);
+    const { photographers } = await getPhotographers();
+    const userID = getIdOfUser();
+    const photographerName = photographers.find(element => element.id == userID).name.split(' ')[0].replace("-", " ");
+    const photographerMedia = await getUserMediaByID(userID)
     switch (filter.value) {
         case "popularity":
             const filterByPopularity = photographerMedia.sort((a, b) => b.likes - a.likes);
