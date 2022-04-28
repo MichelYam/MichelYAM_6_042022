@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <title>Fisheye - photographe </title>
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/normalize.css">
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
+  </header>
+  <main id="main">
+    <!-- profile user -->
+    <div class="photograph-header">
+    </div>
+    <!-- user medias -->
+    <div class="filter-media">
+      <label for="filter-select">Trier par</label>
+      <select name="filter-select" id="media-select">
+        <option value="popularity">Popularité</option>
+        <option value="date">Date</option>
+        <option value="title">Titre</option>
+      </select>
+    </div>
+    <div class="photographer_media_section"></div>
+  </main>
+  <!-- modal contact -->
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <div>
+          <h1>Contactez-moi</h1>
+          <p id="user-name"></p>
+        </div>
+        <img src="assets/icons/close.svg" onclick="closeModal()" />
+      </header>
+      <form>
+        <div>
+          <label for="firstName">Prénom</label>
+          <input id="firstName" name="firstName" type="text" required />
+        </div>
+        <div>
+          <label for="lastName">Nom</label>
+          <input id="lastName" name="lastName" type="text" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div>
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" rows="6"></textarea>
+        </div>
+        <button class="contact_button">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- lightbox modal -->
+  <div id="lightbox_modal" class="lightbox">
+    <div class="carrousel">
+      <div class="close" onclick="closeLightModal()"></div>
+      <div class="caroussel-content">
+        <div class="carrousel-img">
+          <img src="./assets/images/media/Marcel/Architecture_Dome.jpg" alt="test">
+          <h2>${title}</h2>
+        </div>
+        <div class="carousel__button--next"></div>
+        <div class="carousel__button--prev"></div>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/factories/media.js"></script>
+  <script src="scripts/pages/photographer.js"></script>
+  <script src="/scripts/utils/carrousel.js"></script>
+  <script src="/scripts/utils/contactForm.js"></script>
+</body>
+
+</html>
