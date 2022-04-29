@@ -1,13 +1,19 @@
-import * from "../pages/photographer.js";
-
+import { photographerDetail, photographerMediaList } from '../factories/media';
 // Mettre le code JavaScript lié à la page photographer.html
+// async function getPhotographers() {
+//   let data = [];
+//   await fetch('../../data/photographers.json')
+//   .then((res) => (data = res.json()),
+//   ).catch((req) => console.log(req));
+//   return data;
+// }
 async function getPhotographers() {
-  let data = [];
-  await fetch('../../data/photographers.json').then(
-    (res) => (data = res.json()),
-  ).catch((req) => console.log(req));
-  return data;
+  await fetch('../../data/photographers.json')
+    .then((res) => res.json())
+    .catch((req) => console.log(req));
+  // return data;
 }
+
 // get user ID from url
 const getIdOfUser = () => {
   const queryString = window.location.search;
@@ -35,7 +41,7 @@ displayUserData();
 // <----- media ----->
 const getUserMediaByID = async (userID) => {
   const { media } = await getPhotographers();
-  const photographerMedia = media.filter((element) => element.photographerId == userID);
+  const photographerMedia = media.filter((element) => element.photographerId === userID);
   return photographerMedia;
 };
 // get structure HTML of the user
@@ -49,7 +55,7 @@ const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerMedia = await getUserMediaByID(userID);
-  const photographerName = photographers.find((element) => element.id == userID).name.split(' ')[0].replace('-', ' ');
+  const photographerName = photographers.find((element) => element.id === userID).name.split(' ')[0].replace('-', ' ');
   getUserMedias(photographerMedia, photographerName);
 };
 displayUserMedias();
@@ -60,26 +66,33 @@ const filter = document.getElementById('media-select');
 filter.addEventListener('change', async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  const photographerName = photographers.find((element) => element.id == userID).name.split(' ')[0].replace('-', ' ');
+  const photographerName = photographers.find((element) => element.id === userID).name.split(' ')[0].replace('-', ' ');
   const photographerMedia = await getUserMediaByID(userID);
   switch (filter.value) {
-    case 'popularity':
+    case 'popularity': {
       const filterByPopularity = photographerMedia.sort((a, b) => b.likes - a.likes);
       // console.log(filterByPopularity);
       getUserMedias(filterByPopularity, photographerName);
-      displayMediaModal(filterByPopularity);
+      //   displayMediaModal(filterByPopularity);
       break;
-    case 'date':
+    }
+    case 'date': {
       const filterByDate = photographerMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
       // console.log(filterByDate);
       getUserMedias(filterByDate, photographerName);
-      displayMediaModal(filterByDate);
+      //   displayMediaModal(filterByDate);
       break;
-    case 'title':
+    }
+
+    case 'title': {
       const filterByTitle = photographerMedia.sort((a, b) => (a.title < b.title ? -1 : 1));
       // console.log(filterByTitle);
       getUserMedias(filterByTitle, photographerName);
-      displayMediaModal(filterByTitle);
+      //   displayMediaModal(filterByTitle);
       break;
+    }
+    default: {
+      console.log(`Sorry, we are out of ${filter.value}.`);
+    }
   }
 });

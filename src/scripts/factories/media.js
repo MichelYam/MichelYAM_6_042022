@@ -7,7 +7,7 @@
 //     }
 // }
 
-function photographerDetail(photographer) {
+export function photographerDetail(photographer) {
   return (`
     <div class="photographer-text">
         <h1>${photographer.name}</h1>
@@ -22,12 +22,12 @@ function photographerDetail(photographer) {
     `);
 }
 
-function photographerMediaList(media, photographerName) {
-  return media.map((media) => (`
+export function photographerMediaList(media, photographerName) {
+  return media.map(() => (`
         <div class="medial-container">
                 ${media.video === undefined
       ? `<img onclick="displayMediaModal(${media.id})" src="./assets/images/media/${photographerName}/${media.image}" alt="${photographerName} ${media.image}" />`
-      : `<video controls>
+      : `<video>
                     <source src="../assets/images/media/${photographerName}/${media.video}" type="video/webm" />
                     <source src="../assets/images/media/${photographerName}/${media.video}" type="video/mp4" />
             </video>`

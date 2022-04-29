@@ -1,6 +1,6 @@
-function photographerFactory(data) {
-    return data.map((photographer) => (
-        `<article>
+export default function photographerFactory(data) {
+  return data.map((photographer) => (
+    `<article>
             <a href="./photographer.html?id=${photographer.id}">
                 <img src="../assets/images/photographers/${photographer.portrait}" alt="photo_de_${photographer.name}"/>
                 <h2>${photographer.name}</h2>
@@ -11,6 +11,5 @@ function photographerFactory(data) {
                 <p class="price">${photographer.price}€/jour</p>
             </div>
         </article>`
-    )).join('')
+  )).join('');
 }
-
