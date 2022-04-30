@@ -1,21 +1,23 @@
-import { photographerFactory } from '../factories/photographer';
+import photographerFactory from '../factories/photographer';
 
-async function getPhotographers() {
+const getPhotographers = async () => {
   // Penser à remplacer par les données récupérées dans le json
   await fetch('../../data/photographers.json')
     .then((res) => res.json())
-    .catch((req) => console.log(req));
+    .catch((req) => { throw new Error(req); });
   // et bien retourner le tableau photographers seulement une fois
-}
-async function displayData(photographers) {
+};
+
+const displayData = async (photographers) => {
   const photographersSection = document.querySelector('.photographer_section');
   photographersSection.innerHTML = photographerFactory(photographers);
-}
+};
 
-async function init() {
+const init = async () => {
   const { photographers } = await getPhotographers();
+  console.log(photographers);
   // Récupère les datas des photographes
   displayData(photographers);
-}
+};
 
 init();

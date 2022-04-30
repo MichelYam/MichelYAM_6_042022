@@ -1,16 +1,9 @@
 import { photographerDetail, photographerMediaList } from '../factories/media';
 // Mettre le code JavaScript lié à la page photographer.html
-// async function getPhotographers() {
-//   let data = [];
-//   await fetch('../../data/photographers.json')
-//   .then((res) => (data = res.json()),
-//   ).catch((req) => console.log(req));
-//   return data;
-// }
 async function getPhotographers() {
   await fetch('../../data/photographers.json')
     .then((res) => res.json())
-    .catch((req) => console.log(req));
+    .catch((req) => { throw new Error(req); });
   // return data;
 }
 
