@@ -54,38 +54,101 @@ const displayUserMedias = async () => {
 displayUserMedias();
 
 // Filter
-const filter = document.getElementById('media-select');
 
-filter.addEventListener('change', async () => {
+const filter = document.getElementById('media-select');
+const getFilterCurrent = async () => {
+  let filterCurrent = []
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerName = photographers.find((element) => element.id === userID).name.split(' ')[0].replace('-', ' ');
   const photographerMedia = await getUserMediaByID(userID);
   switch (filter.value) {
-    case 'popularity': {
+    case 'popularity':
       const filterByPopularity = photographerMedia.sort((a, b) => b.likes - a.likes);
       // console.log(filterByPopularity);
+      filterCurrent = filterByPopularity;
       getUserMedias(filterByPopularity, photographerName);
-      //   displayMediaModal(filterByPopularity);
       break;
-    }
-    case 'date': {
+    case 'date':
       const filterByDate = photographerMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
       // console.log(filterByDate);
+      filterCurrent = filterByDate;
       getUserMedias(filterByDate, photographerName);
-      //   displayMediaModal(filterByDate);
       break;
-    }
-
-    case 'title': {
-      const filterByTitle = photographerMedia.sort((a, b) => (a.title < b.title ? -1 : 1));
+    case 'title':
+      const filterByTitle = photographerMedia.sort((a, b) => a.title < b.title ? -1 : 1);
       // console.log(filterByTitle);
+      filterCurrent = filterByTitle;
       getUserMedias(filterByTitle, photographerName);
-      //   displayMediaModal(filterByTitle);
       break;
-    }
-    default: {
-      console.log(`Sorry, we are out of ${filter.value}.`);
-    }
+      
+    default:
+      console.log(filter.value);
+
+
   }
-});
+  return filterCurrent;
+}
+
+
+
+filter.addEventListener('change', getFilterCurrent);
+
+
+async function displayLigthModal(mediaID) {
+  const mediaSection = document.querySelector('.caroussel-content');
+  const modalSection = document.getElementById('lightbox_modal');
+  modalSection.classList.replace('hidden', 'active');
+  const photographerInfo = await getUserInfo();
+  const filterCurrent = await getFilterCurrent();
+  const thePicture = filterCurrent.find((element) => element.id === mediaID);
+  const imageID = filterCurrent.indexOf(thePicture);
+  const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
+  mediaSection.innerHTML = ligthboxCardDOM;
+  const leftArrow = document.querySelector('.carousel__button--prev');
+  const rightArrow = document.querySelector('.carousel__button--next');
+
+  // event click
+  leftArrow.addEventListener('click', () => {
+    // console.log('gauche')
+    imageID = previousImage(filterCurrent, photographerInfo, imageID, mediaSection);
+  })
+
+  rightArrow.addEventListener('click', () => {
+    // console.log('droite')
+    imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
+  })
+
+  // keyboard key
+  document.addEventListener('keyup', (e) => {
+    // console.log(e.key)
+    if (e.key === 'ArrowLeft') {
+      imageID = previousImage(filterCurrent, photographerInfo, imageID, mediaSection);
+    } else if (e.key === 'ArrowRight') {
+      imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
+    } else if (e.key === 'Escape') {
+      modalSection.classList.replace('active', 'hidden')
+    }
+  })
+}
+
+const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+  if (imageID === 0) {
+    imageID = filterCurrent.length - 1;
+  } else {
+    imageID--;
+  }
+  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
+  return imageID;
+}
+
+const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+  if (imageID === filterCurrent.length - 1) {
+    imageID = 0;
+  } else {
+    imageID++;
+  }
+  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
+  return imageID;
+}
+
