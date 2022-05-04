@@ -1,11 +1,20 @@
-// class Media {
-//     constructor(media) {
-//         this._title = media.title
-//         this._price = media.price
-//         this._date = media.date
-//         this._likes = media.likes
-//     }
-// }
+class MediaFactory {
+  constructor(media, type) {
+    this._image = media.image;
+    this._video = media.video;
+
+    if (type === 'imgage') {
+      return MediaImage();
+    } if (type === 'video') {
+      return MediaVideo();
+    }
+    throw new Error('Unknown media format');
+  }
+
+  static MediaImage() {
+    return `<img src="./assets/images/photographers/${}" alt="${}"/>`;
+  }
+}
 /**
  *get all information about photographer
  * @param {array} photographer
@@ -66,16 +75,3 @@ export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   }
   return { getlightBoxCardDOM };
 }
-
-// const ELEMENTS = {
-//   Image, Video,
-// };
-
-// export default class ElementsFactory {
-//   static createInstance(data) {
-//     const elementCreator = ELEMENTS[data.type];
-//     const element = elementCreator ? new elementCreator(data) : null;
-
-//     return element;
-//   }
-// }
