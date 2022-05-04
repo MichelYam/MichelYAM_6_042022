@@ -6,7 +6,11 @@
 //         this._likes = media.likes
 //     }
 // }
-
+/**
+ *get all information about photographer
+ * @param {array} photographer
+ * @returns
+ */
 export function photographerDetail(photographer) {
   return (`
     <div class="photographer-text">
@@ -21,7 +25,12 @@ export function photographerDetail(photographer) {
     </div>
     `);
 }
-
+/**
+ * get all media from a photographer
+ * @param {array} media
+ * @param {string} photographerName
+ * @returns
+ */
 export function photographerMediaList(media, photographerName) {
   return media.map(() => (`
         <div class="medial-container">

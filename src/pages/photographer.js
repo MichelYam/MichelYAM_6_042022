@@ -56,6 +56,10 @@ displayUserMedias();
 // Filter
 
 const filter = document.getElementById('media-select');
+/**
+ * get array of photographer depending on the filter
+ * @returns {array}
+ */
 const getFilterCurrent = async () => {
   let filterCurrent = [];
   const { photographers } = await getPhotographers();
@@ -91,6 +95,15 @@ const getFilterCurrent = async () => {
 };
 
 filter.addEventListener('change', getFilterCurrent);
+
+/**
+ *  manages the previous direction in lightbox
+ * @param {array} filterCurrent
+ * @param {string} photographerInfo
+ * @param {int} imageID
+ * @param {string} mediaSection
+ * @returns
+ */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
   if (imageID === 0) {
@@ -102,7 +115,14 @@ const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) =
     .getlightBoxCardDOM();
   return imageID;
 };
-
+/**
+ *  manages the next direction in lightbox
+ * @param {array} filterCurrent
+ * @param {string} photographerInfo
+ * @param {int} imageID
+ * @param {string} mediaSection
+ * @returns
+ */
 const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
   if (imageID === filterCurrent.length - 1) {
     imageID.prop = 0;
@@ -116,16 +136,17 @@ const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
 
 /**
  * handle lightBox
- * @param {*} mediaID
+ * @param {int} mediaID
  */
-async function displayLigthModal(mediaID) {
+
+export default async function displayLigthModal(mediaID) {
   const mediaSection = document.querySelector('.caroussel-content');
   const modalSection = document.getElementById('lightbox_modal');
   modalSection.classList.replace('hidden', 'active');
   const photographerInfo = await getUserInfo();
   const filterCurrent = await getFilterCurrent();
-  const thePicture = filterCurrent.find((element) => element.id === mediaID);
-  let imageID = filterCurrent.indexOf(thePicture);
+  const image = filterCurrent.find((element) => element.id === mediaID);
+  let imageID = filterCurrent.indexOf(image);
   const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID)
     .getlightBoxCardDOM();
   mediaSection.innerHTML = ligthboxCardDOM;

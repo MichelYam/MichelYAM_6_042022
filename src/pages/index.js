@@ -17,7 +17,7 @@ const getPhotographers = async () => {
 
 const displayData = async (photographers) => {
   const photographersSection = document.querySelector('.photographer_section');
-  photographersSection.innerHTML = photographerFactory(photographers);
+  photographersSection.innerHTML = photographerFactory(photographers).getUserCardDOM();
 };
 
 const init = async () => {
