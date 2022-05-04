@@ -41,20 +41,32 @@ export function photographerMediaList(media, photographerName) {
     `)).join('');
 }
 
-function lightboxFactory(filterCurrent, photographerInfo, imageID) {
-    const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
-    function getlightBoxCardDOM() {
-        return (` 
+export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
+  const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
+  function getlightBoxCardDOM() {
+    return (` 
           <div class="carrousel-img">
-          ${filterCurrent[imageID].video === undefined ?
-                `<img src="./assets/images/media/${photographerName}/${filterCurrent[imageID].image}" alt="${photographerName} ${filterCurrent[imageID].image}" />`
-                :
-                `<video controls>
+          ${filterCurrent[imageID].video === undefined
+        ? `<img src="./assets/images/media/${photographerName}/${filterCurrent[imageID].image}" alt="${photographerName} ${filterCurrent[imageID].image}" />`
+        : `<video controls>
                     <source src="./assets/images/media/${photographerName}/${filterCurrent[imageID].video}" type="video/mp4" />
                 </video>`
-            }
+      }
             <h2>${filterCurrent[imageID].title}</h2>
           </div>`);
-    }
-    return { getlightBoxCardDOM }
+  }
+  return { getlightBoxCardDOM };
 }
+
+// const ELEMENTS = {
+//   Image, Video,
+// };
+
+// export default class ElementsFactory {
+//   static createInstance(data) {
+//     const elementCreator = ELEMENTS[data.type];
+//     const element = elementCreator ? new elementCreator(data) : null;
+
+//     return element;
+//   }
+// }

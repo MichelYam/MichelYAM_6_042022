@@ -1,19 +1,8 @@
 const closeLightModal = () => {
-    const lightModal = document.getElementById("lightbox_modal")
-    lightModal.style.display = "none";
-}
+  const lightModal = document.getElementById('lightbox_modal');
+  lightModal.style.display = 'none';
+};
 const displayMediaModal = (mediaID, filterCurrent, photographerName) => {
-    const lightModal = document.getElementById("lightbox_modal")
-    lightModal.style.display = "block";
-}
-
-const moveNext = () => {
-
-}
-const movePrev = () => {
-
-}
-
-const initCaroussel = () => {
-
-}
+  const lightModal = document.getElementById('lightbox_modal');
+  lightModal.style.display = 'block';
+};

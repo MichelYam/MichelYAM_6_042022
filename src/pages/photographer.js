@@ -1,4 +1,4 @@
-import { photographerDetail, photographerMediaList } from '../factories/media';
+import { photographerDetail, photographerMediaList, lightboxFactory } from '../factories/media';
 // Mettre le code JavaScript lié à la page photographer.html
 async function getPhotographers() {
   await fetch('../../data/photographers.json')
@@ -57,44 +57,67 @@ displayUserMedias();
 
 const filter = document.getElementById('media-select');
 const getFilterCurrent = async () => {
-  let filterCurrent = []
+  let filterCurrent = [];
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerName = photographers.find((element) => element.id === userID).name.split(' ')[0].replace('-', ' ');
   const photographerMedia = await getUserMediaByID(userID);
   switch (filter.value) {
-    case 'popularity':
+    case 'popularity': {
       const filterByPopularity = photographerMedia.sort((a, b) => b.likes - a.likes);
       // console.log(filterByPopularity);
       filterCurrent = filterByPopularity;
       getUserMedias(filterByPopularity, photographerName);
+    }
       break;
-    case 'date':
+    case 'date': {
       const filterByDate = photographerMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
       // console.log(filterByDate);
       filterCurrent = filterByDate;
       getUserMedias(filterByDate, photographerName);
+    }
       break;
-    case 'title':
-      const filterByTitle = photographerMedia.sort((a, b) => a.title < b.title ? -1 : 1);
+    case 'title': {
+      const filterByTitle = photographerMedia.sort((a, b) => (a.title < b.title ? -1 : 1));
       // console.log(filterByTitle);
       filterCurrent = filterByTitle;
       getUserMedias(filterByTitle, photographerName);
       break;
-      
+    }
     default:
       console.log(filter.value);
-
-
   }
   return filterCurrent;
-}
-
-
+};
 
 filter.addEventListener('change', getFilterCurrent);
+/* eslint no-param-reassign: ["error", { "props": false }] */
+const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+  if (imageID === 0) {
+    imageID.prop = filterCurrent.length - 1;
+  } else {
+    imageID.prop -= 1;
+  }
+  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
+    .getlightBoxCardDOM();
+  return imageID;
+};
 
+const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+  if (imageID === filterCurrent.length - 1) {
+    imageID.prop = 0;
+  } else {
+    imageID.prop += 1;
+  }
+  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
+    .getlightBoxCardDOM();
+  return imageID;
+};
 
+/**
+ * handle lightBox
+ * @param {*} mediaID
+ */
 async function displayLigthModal(mediaID) {
   const mediaSection = document.querySelector('.caroussel-content');
   const modalSection = document.getElementById('lightbox_modal');
@@ -102,8 +125,9 @@ async function displayLigthModal(mediaID) {
   const photographerInfo = await getUserInfo();
   const filterCurrent = await getFilterCurrent();
   const thePicture = filterCurrent.find((element) => element.id === mediaID);
-  const imageID = filterCurrent.indexOf(thePicture);
-  const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
+  let imageID = filterCurrent.indexOf(thePicture);
+  const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID)
+    .getlightBoxCardDOM();
   mediaSection.innerHTML = ligthboxCardDOM;
   const leftArrow = document.querySelector('.carousel__button--prev');
   const rightArrow = document.querySelector('.carousel__button--next');
@@ -112,12 +136,12 @@ async function displayLigthModal(mediaID) {
   leftArrow.addEventListener('click', () => {
     // console.log('gauche')
     imageID = previousImage(filterCurrent, photographerInfo, imageID, mediaSection);
-  })
+  });
 
   rightArrow.addEventListener('click', () => {
     // console.log('droite')
     imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
-  })
+  });
 
   // keyboard key
   document.addEventListener('keyup', (e) => {
@@ -127,28 +151,7 @@ async function displayLigthModal(mediaID) {
     } else if (e.key === 'ArrowRight') {
       imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
     } else if (e.key === 'Escape') {
-      modalSection.classList.replace('active', 'hidden')
+      modalSection.classList.replace('active', 'hidden');
     }
-  })
+  });
 }
-
-const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
-  if (imageID === 0) {
-    imageID = filterCurrent.length - 1;
-  } else {
-    imageID--;
-  }
-  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
-  return imageID;
-}
-
-const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
-  if (imageID === filterCurrent.length - 1) {
-    imageID = 0;
-  } else {
-    imageID++;
-  }
-  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID).getlightBoxCardDOM();
-  return imageID;
-}
-
