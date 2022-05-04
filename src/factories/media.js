@@ -1,18 +1,15 @@
 class MediaFactory {
   constructor(media, type) {
+    /* eslint no-underscore-dangle: 0 */
     this._image = media.image;
     this._video = media.video;
-
-    if (type === 'imgage') {
-      return MediaImage();
-    } if (type === 'video') {
-      return MediaVideo();
-    }
-    throw new Error('Unknown media format');
+    this._type = type;
   }
 
-  static MediaImage() {
-    return `<img src="./assets/images/photographers/${}" alt="${}"/>`;
+  static mediaType() {
+    const mediaElement = this._type;
+    const element = mediaElement ? new MediaImage() : new MediaVideo();
+    return element;
   }
 }
 /**
