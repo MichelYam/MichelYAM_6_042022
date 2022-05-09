@@ -1,12 +1,13 @@
-import photographerFactory from '../factories/photographer';
+import photographerFactory from '../factories/photographer.js';
 // import Api from '../api/api';
 
 const getPhotographers = async () => {
   // Penser à remplacer par les données récupérées dans le json
-  await fetch('../../data/photographers.json')
+  const data = await fetch('../../data/photographers.json')
     .then((res) => res.json())
     .catch((req) => { throw new Error(req); });
   // et bien retourner le tableau photographers seulement une fois
+  return data;
 };
 
 // const getPhotographers = async () => {

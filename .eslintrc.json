@@ -16,6 +16,7 @@
         "no-console": "off",
         "quotes": [
             "error", "single"
-        ]
+        ],
+        "import/extensions": "off"
     }
 }

@@ -1,52 +1,59 @@
-/* eslint max-classes-per-file: ["error", 3] */
-class MediaImage {
-  constructor(media, photographerName) {
-    this._title = media.title;
-    this._id = media.id;
-    this._price = media.price;
-    this._like = media.like;
-    this._image = media.image;
-    this._photographerId = media.photographerId;
-    this._photographerName = photographerName;
-  }
+// /* eslint max-classes-per-file: ["error", 4] */
+// class MediaImage {
+//   constructor(media, photographerName) {
+//     this._image = media.image;
+//     this._photographerName = photographerName;
+//   }
 
-  render() {
-    return `<img onclick="displayMediaModal(${this._id})" src="./assets/images/media/${this._photographerName}/${this._image}" alt="${this._photographerName} ${this._image}" />`;
-  }
-}
+//   render() {
+//     return `<img onclick="displayMediaModal(${this._id})"
+//  src="./assets/images/media/${this._photographerName}/${this._image}"
+//  alt="${this._photographerName} ${this._image}" />`;
+//   }
+// }
 
-class MediaVideo {
-  constructor(media, photographerName) {
-    this._title = media.title;
-    this._id = media.id;
-    this._price = media.price;
-    this._like = media.like;
-    this._video = media.video;
-    this._photographerId = media.photographerId;
-    this._photographerName = photographerName;
-  }
+// class MediaVideo {
+//   constructor(media, photographerName) {
+//     this._video = media.video;
+//     this._photographerName = photographerName;
+//   }
 
-  render() {
-    return `<video><source src="../assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" /></video>`;
-  }
-}
+//   render() {
+//     return `<video><source src="../assets/images/media/${this._photographerName}/${this._video}"
+//  type="video/mp4" /></video>`;
+//   }
+// }
 
-class MediaFactory {
-  constructor(media, type, photographerName) {
-    /* eslint no-underscore-dangle: 0 */
-    this._type = type;
-    this._media = media;
-    this._photographerName = photographerName;
-  }
+// class MediaFactory {
+//   constructor(media, type, photographerName) {
+//     /* eslint no-underscore-dangle: 0 */
+//     this._type = type;
+//     this._media = media;
+//     this._photographerName = photographerName;
+//   }
 
-  static mediaType() {
-    const mediaElement = this._type;
-    const element = mediaElement ? new MediaImage(this._media, this._photographerName)
-      : new MediaVideo(this._media, this._photographerName);
-    return element;
-  }
-}
+//   static mediaType() {
+//     const mediaElement = this._type;
+//     const element = mediaElement ? new MediaImage(this._media, this._photographerName)
+//       : new MediaVideo(this._media, this._photographerName);
+//     return element;
+//   }
+// }
 
+// class Media {
+//   constructor(media, photographerName) {
+//     this._title = media.title;
+//     this._id = media.id;
+//     this._price = media.price;
+//     this._like = media.like;
+//     this._photographerId = media.photographerId;
+//     this._photographerName = photographerName;
+//   }
+
+//   getLike() {
+//     return this._like;
+//   }
+// }
 /**
  *get all information about photographer
  * @param {array} photographer
@@ -72,15 +79,17 @@ export function photographerDetail(photographer) {
  * @param {string} photographerName
  * @returns
  */
+
+// append
 export function photographerMediaList(media, photographerName) {
   return media.map(() => (`
         <div class="medial-container">
-                ${media.video === undefined
+        ${media.video === undefined
       ? `<img onclick="displayMediaModal(${media.id})" src="./assets/images/media/${photographerName}/${media.image}" alt="${photographerName} ${media.image}" />`
       : `<video>
-                    <source src="../assets/images/media/${photographerName}/${media.video}" type="video/webm" />
-                    <source src="../assets/images/media/${photographerName}/${media.video}" type="video/mp4" />
-            </video>`
+                        <source src="./assets/images/media/${photographerName}/${media.video}" type="video/webm" />
+                        <source src="./assets/images/media/${photographerName}/${media.video}" type="video/mp4" />
+                </video>`
     }
                 <div>
                     <h2>${media.title}</h2>

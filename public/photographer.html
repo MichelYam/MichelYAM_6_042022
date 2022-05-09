@@ -15,7 +15,7 @@
 
 <body>
   <header>
-    <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
+    <a href="index.html"><img src="./assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
   </header>
   <main id="main">
     <!-- profile user -->
@@ -40,7 +40,7 @@
           <h1>Contactez-moi</h1>
           <p id="user-name"></p>
         </div>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="./assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>
         <div>
@@ -65,8 +65,8 @@
   </div>
 
 
-   <!-- lightbox modal -->
-   <div id="lightbox_modal" class="lightbox hidden">
+  <!-- lightbox modal -->
+  <div id="lightbox_modal" class="lightbox hidden">
     <div class="carrousel">
       <div class="close" onclick="closeLightModal()"></div>
       <div class="caroussel-content">
@@ -79,10 +79,10 @@
       <div class="carousel__button--prev"></div>
     </div>
   </div>
-  <script src="../src/factories/media.js" ></script>
-  <script src="../src/pages/photographer.js" ></script>
-  <script src="../src/utils/carrousel.js" ></script>
-  <script src="../src/utils/contactForm.js" ></script>
+  <script type="module" src="../src/factories/media.js"></script>
+  <script type="module" src="../src/pages/photographer.js"></script>
+  <script type="module" src="../src/utils/carrousel.js"></script>
+  <script type="module" src="../src/utils/contactForm.js"></script>
 </body>
 
 </html>
