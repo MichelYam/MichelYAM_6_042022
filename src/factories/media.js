@@ -1,5 +1,5 @@
 /* eslint max-classes-per-file: ["error", 4] */
-// eslint-disable-next-line import/no-cycle
+
 class MediaImage {
   constructor(media, photographerName) {
     this._image = media.image;

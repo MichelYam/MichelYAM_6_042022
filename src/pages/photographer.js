@@ -53,7 +53,10 @@ const getUserMedias = async (photographerMedia, photographerName) => {
   });
 };
 
-// display data of the user
+/**
+ * display data of the user
+ *
+ */
 const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
@@ -63,6 +66,7 @@ const displayUserMedias = async () => {
     .name.split(' ')[0].replace('-', ' ');
   getUserMedias(filter, photographerName);
 };
+displayUserMedias();
 
 // Filter
 const filter = document.getElementById('media-select');
@@ -70,7 +74,7 @@ const filter = document.getElementById('media-select');
  * get array of photographer depending on the filter
  * @returns {array}
  */
-const getFilterCurrent = async () => {
+export const getFilterCurrent = async () => {
   let filterCurrent = [];
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
@@ -145,13 +149,12 @@ const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
  * handle lightBox
  * @param {int} mediaID
  */
-
 async function displayLigthModal(mediaID) {
   const mediaSection = document.querySelector('.caroussel-content');
   const modalSection = document.getElementById('lightbox_modal');
   modalSection.classList.replace('hidden', 'active');
   const photographerInfo = await getUserInfo();
-  const filterCurrent = await getFilterCurrent();
+  const filterCurrent = getFilterCurrent();
   const image = filterCurrent.find((element) => element.id == mediaID);
   let imageID = filterCurrent.indexOf(image);
   const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID)
@@ -184,8 +187,52 @@ async function displayLigthModal(mediaID) {
   });
 }
 
-function init() {
-  displayUserMedias();
-}
+/**
+ * Insert total number of likes
+ */
+const getLikes = () => {
+  // const userId = getIdOfUser()
+  // const allmedia = await getUserMediaByID(userId);
+  // allmedia.forEach(element => {
+  //     totalLike += element.likes
+  // });
+  // getElementDOM.innerHTML = totalLike;
+  // return totalLike;
+  const getElementDOM = document.getElementById('price');
+  const elementDom = document.querySelectorAll('#like');
+  let totalLike = 0;
 
-init();
+  elementDom.forEach((item) => {
+    totalLike += parseInt(item.textContent);
+  });
+  getElementDOM.innerHTML = totalLike;
+  return totalLike;
+};
+/**
+ * add Like on click
+ * @param {*} mediaID
+ */
+const addLike = async (mediaID) => {
+  const userId = getIdOfUser();
+  const allmedia = await getUserMediaByID(userId);
+  let totalLike = getLikes();
+  allmedia.forEach((element) => {
+    const articleSection = document.querySelector(`article[data-id='${element.id}']`);
+    const likeDiv = document.querySelector(`article[data-id='${element.id}'] #like`);
+    if (element.id === mediaID) {
+      likeDiv.innerHTML = element.likes + 1;
+      totalLike++;
+      articleSection.classList.add('liked');
+    }
+  });
+  allmedia.forEach((element) => {
+    const likeDiv = document.querySelector(`article[data-id= '${element.id}'] #like`);
+    const articleSection = document.querySelector(`article[data-id= '${element.id}']`);
+    //     // if (articleSection.classList.contains("liked") && element.id === mediaID) {
+    if (parseInt(likeDiv.innerHTML) === element.likes + 1) {
+      likeDiv.innerHTML = element.likes;
+      totalLike--;
+      articleSection.classList.remove('liked');
+    }
+  });
+};
