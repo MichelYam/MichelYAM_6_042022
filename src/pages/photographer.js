@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+// eslint-disable-next-line import/no-cycle
 import {
   photographerDetail, photographerMediaList, lightboxFactory,
 } from '../factories/media.js';
@@ -17,12 +19,12 @@ const getIdOfUser = () => {
   return id;
 };
 
-const getUserInfo = async () => {
+export default async function getUserInfo() {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerInfo = photographers.find((photographer) => photographer.id == userID);
   return photographerInfo;
-};
+}
 
 // display data of the user
 const displayUserData = async () => {
@@ -36,34 +38,30 @@ displayUserData();
 
 const getUserMediaByID = async (userID) => {
   const { media } = await getPhotographers();
+  // eslint-disable-next-line eqeqeq
   const photographerMedia = media.filter((element) => element.photographerId == userID);
   return photographerMedia;
 };
 // get structure HTML of the user
 const getUserMedias = async (photographerMedia, photographerName) => {
   const mediaSection = document.querySelector('.photographer_media_section');
-  // mediaSection.innerHTML = photographerMediaList(photographerMedia, photographerName)
-  //   .getMediasCardDOM();
-  // constructor(media, type, photographerName) {
+  mediaSection.innerHTML = '';
   photographerMedia.forEach((media) => {
-    const mediarModel = photographerMediaList(media, photographerName);
-    const mediaCardDOM = mediarModel.getMediasCardDOM();
+    const mediaModel = photographerMediaList(media, photographerName);
+    const mediaCardDOM = mediaModel.getMediasCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
 };
-// photographers.forEach((photographer) => {
-//   const photographerModel = photographerFactory(photographer);
-//   const userCardDOM = photographerModel.getUserCardDOM();
-//   photographersSection.appendChild(userCardDOM);
-// });
+
 // display data of the user
 const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerMedia = await getUserMediaByID(userID);
+  const filter = photographerMedia.sort((a, b) => b.likes - a.likes);
   const photographerName = photographers.find((element) => element.id == userID)
     .name.split(' ')[0].replace('-', ' ');
-  getUserMedias(photographerMedia, photographerName);
+  getUserMedias(filter, photographerName);
 };
 
 // Filter
@@ -153,7 +151,7 @@ async function displayLigthModal(mediaID) {
   const modalSection = document.getElementById('lightbox_modal');
   modalSection.classList.replace('hidden', 'active');
   const photographerInfo = await getUserInfo();
-  const filterCurrent = getFilterCurrent();
+  const filterCurrent = await getFilterCurrent();
   const image = filterCurrent.find((element) => element.id == mediaID);
   let imageID = filterCurrent.indexOf(image);
   const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID)
@@ -186,5 +184,8 @@ async function displayLigthModal(mediaID) {
   });
 }
 
-displayUserMedias();
-console.log(document.getElementById('lightBoxMedia'));
+function init() {
+  displayUserMedias();
+}
+
+init();

@@ -1,66 +1,43 @@
 /* eslint max-classes-per-file: ["error", 4] */
+// eslint-disable-next-line import/no-cycle
 class MediaImage {
   constructor(media, photographerName) {
     this._image = media.image;
+    this._id = media.id;
     this._photographerName = photographerName;
   }
 
   render() {
-    return `<img onclick="displayMediaModal(${this._id})"
+    return (`<img 
             src="./assets/images/media/${this._photographerName}/${this._image}"
-            alt="${this._photographerName} ${this._image}" />`;
+            alt="${this._photographerName} ${this._image}" />`);
   }
 }
 
 class MediaVideo {
   constructor(media, photographerName) {
     this._video = media.video;
+    this._id = media.id;
     this._photographerName = photographerName;
   }
 
   render() {
-    return `<video><source src="../assets/images/media/${this._photographerName}/${this._video}"
-            type="video/mp4" /></video>`;
+    return (`<video >
+              <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
+            </video>`);
   }
 }
 
+/* eslint no-underscore-dangle: 0 */
 class MediaFactory {
-  constructor(media, photographerName) {
-    /* eslint no-underscore-dangle: 0 */
-    this._video = media.video;
-    this._image = media.image;
-    this._photographerName = photographerName;
-    /* eslint no-constructor-return: "error" */
-    if (this._image) {
-      return new MediaImage(this._media, this._photographerName);
-    } if (this._video) {
-      return new MediaVideo(this._media, this._photographerName);
-    }
-    throw 'Unknown type format';
+  static getMediaType(media, photographerName) {
+    const mediaElement = media.video === undefined
+      ? new MediaImage(media, photographerName)
+      : new MediaVideo(media, photographerName);
+    return mediaElement;
   }
-
-  // getMediaType() {
-  //   const mediaElement = this._type;
-  //   const element = mediaElement ? new MediaImage(this._media, this._photographerName)
-  //     : new MediaVideo(this._media, this._photographerName);
-  //   return element;
-  // }
 }
 
-// class Media {
-//   constructor(media, photographerName) {
-//     this._title = media.title;
-//     this._id = media.id;
-//     this._price = media.price;
-//     this._like = media.like;
-//     this._photographerId = media.photographerId;
-//     this._photographerName = photographerName;
-//   }
-
-//   getLike() {
-//     return this._like;
-//   }
-// }
 /**
  *get all information about photographer
  * @param {array} photographer
@@ -88,11 +65,8 @@ export function photographerDetail(photographer) {
  */
 
 export function photographerMediaList(media, photographerName) {
-  const {
-    likes, image, video, title,
-  } = media;
-  const mediaFactory = new MediaFactory(media, photographerName);
-  console.log(mediaFactory.getMediaType());
+  const { likes, title, id } = media;
+  const mediaFactory = MediaFactory.getMediaType(media, photographerName).render();
   // const picture = `assets/photographers/${portrait}`;
   function getMediasCardDOM() {
     const h2 = document.createElement('h2');
@@ -105,27 +79,24 @@ export function photographerMediaList(media, photographerName) {
     span.appendChild(i);
 
     // button_element.setAttribute('onclick', 'doSomething();');
+    const mediaAssets = document.createElement('div');
+    mediaAssets.innerHTML = mediaFactory;
+    mediaAssets.setAttribute('class', 'photographer-media');
+    mediaAssets.setAttribute('onclick', `displayLigthModal(${id})`);
 
     const div = document.createElement('div');
     div.append(h2, span);
 
     const divContainer = document.createElement('div');
     divContainer.setAttribute('class', 'medial-container');
+    divContainer.append(mediaAssets);
     divContainer.append(div);
+
     return divContainer;
   }
-  // function getMediasCardDOM() {
-  //   const article = document.createElement('article');
-  //   const img = document.createElement('img');
-  //   img.setAttribute('src', picture);
-  //   const h2 = document.createElement('h2');
-  //   h2.textContent = name;
-  //   article.appendChild(img);
-  //   article.appendChild(h2);
-  //   return (article);
-  // }
   return { getMediasCardDOM };
 }
+
 export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
   function getlightBoxCardDOM() {
