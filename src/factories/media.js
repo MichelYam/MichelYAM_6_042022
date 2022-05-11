@@ -1,44 +1,51 @@
-// /* eslint max-classes-per-file: ["error", 4] */
-// class MediaImage {
-//   constructor(media, photographerName) {
-//     this._image = media.image;
-//     this._photographerName = photographerName;
-//   }
+/* eslint max-classes-per-file: ["error", 4] */
+class MediaImage {
+  constructor(media, photographerName) {
+    this._image = media.image;
+    this._photographerName = photographerName;
+  }
 
-//   render() {
-//     return `<img onclick="displayMediaModal(${this._id})"
-//  src="./assets/images/media/${this._photographerName}/${this._image}"
-//  alt="${this._photographerName} ${this._image}" />`;
-//   }
-// }
+  render() {
+    return `<img onclick="displayMediaModal(${this._id})"
+            src="./assets/images/media/${this._photographerName}/${this._image}"
+            alt="${this._photographerName} ${this._image}" />`;
+  }
+}
 
-// class MediaVideo {
-//   constructor(media, photographerName) {
-//     this._video = media.video;
-//     this._photographerName = photographerName;
-//   }
+class MediaVideo {
+  constructor(media, photographerName) {
+    this._video = media.video;
+    this._photographerName = photographerName;
+  }
 
-//   render() {
-//     return `<video><source src="../assets/images/media/${this._photographerName}/${this._video}"
-//  type="video/mp4" /></video>`;
-//   }
-// }
+  render() {
+    return `<video><source src="../assets/images/media/${this._photographerName}/${this._video}"
+            type="video/mp4" /></video>`;
+  }
+}
 
-// class MediaFactory {
-//   constructor(media, type, photographerName) {
-//     /* eslint no-underscore-dangle: 0 */
-//     this._type = type;
-//     this._media = media;
-//     this._photographerName = photographerName;
-//   }
+class MediaFactory {
+  constructor(media, photographerName) {
+    /* eslint no-underscore-dangle: 0 */
+    this._video = media.video;
+    this._image = media.image;
+    this._photographerName = photographerName;
+    /* eslint no-constructor-return: "error" */
+    if (this._image) {
+      return new MediaImage(this._media, this._photographerName);
+    } if (this._video) {
+      return new MediaVideo(this._media, this._photographerName);
+    }
+    throw 'Unknown type format';
+  }
 
-//   static mediaType() {
-//     const mediaElement = this._type;
-//     const element = mediaElement ? new MediaImage(this._media, this._photographerName)
-//       : new MediaVideo(this._media, this._photographerName);
-//     return element;
-//   }
-// }
+  // getMediaType() {
+  //   const mediaElement = this._type;
+  //   const element = mediaElement ? new MediaImage(this._media, this._photographerName)
+  //     : new MediaVideo(this._media, this._photographerName);
+  //   return element;
+  // }
+}
 
 // class Media {
 //   constructor(media, photographerName) {
@@ -69,7 +76,7 @@ export function photographerDetail(photographer) {
     </div>
     <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     <div class="photographer-img">
-        <img src="./assets/images/photographers/${photographer.portrait}" alt="${photographer.name}"/>
+        <img src="./assets/photographers/${photographer.portrait}" alt="${photographer.name}"/>
     </div>
     `);
 }
@@ -80,26 +87,45 @@ export function photographerDetail(photographer) {
  * @returns
  */
 
-// append
 export function photographerMediaList(media, photographerName) {
-  return media.map(() => (`
-        <div class="medial-container">
-        ${media.video === undefined
-      ? `<img onclick="displayMediaModal(${media.id})" src="./assets/images/media/${photographerName}/${media.image}" alt="${photographerName} ${media.image}" />`
-      : `<video>
-                        <source src="./assets/images/media/${photographerName}/${media.video}" type="video/webm" />
-                        <source src="./assets/images/media/${photographerName}/${media.video}" type="video/mp4" />
-                </video>`
-    }
-                <div>
-                    <h2>${media.title}</h2>
-                    <span>${media.likes}<i class="fas fa-heart"></i></span>
-                </div>
-            </div>
-        </div>
-    `)).join('');
-}
+  const {
+    likes, image, video, title,
+  } = media;
+  const mediaFactory = new MediaFactory(media, photographerName);
+  console.log(mediaFactory.getMediaType());
+  // const picture = `assets/photographers/${portrait}`;
+  function getMediasCardDOM() {
+    const h2 = document.createElement('h2');
+    h2.textContent = title;
+    const i = document.createElement('i');
+    i.setAttribute('class', 'fas fa-heart');
 
+    const span = document.createElement('span');
+    span.textContent = likes;
+    span.appendChild(i);
+
+    // button_element.setAttribute('onclick', 'doSomething();');
+
+    const div = document.createElement('div');
+    div.append(h2, span);
+
+    const divContainer = document.createElement('div');
+    divContainer.setAttribute('class', 'medial-container');
+    divContainer.append(div);
+    return divContainer;
+  }
+  // function getMediasCardDOM() {
+  //   const article = document.createElement('article');
+  //   const img = document.createElement('img');
+  //   img.setAttribute('src', picture);
+  //   const h2 = document.createElement('h2');
+  //   h2.textContent = name;
+  //   article.appendChild(img);
+  //   article.appendChild(h2);
+  //   return (article);
+  // }
+  return { getMediasCardDOM };
+}
 export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
   function getlightBoxCardDOM() {
