@@ -76,6 +76,7 @@ const getUserMedias = async (photographerMedia, photographerName) => {
 // /**
 //  * get total of likes
 //  */
+// utiliser json reduce
 const getLikes = () => {
   const getElementDOM = document.getElementById('price');
   const elementDom = document.querySelectorAll('#like');
@@ -239,6 +240,7 @@ export async function addLike(mediaID) {
       articleSection.classList.remove('liked');
     }
     getLikes();
+    // change
   });
 }
 /**

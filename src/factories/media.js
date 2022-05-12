@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint max-classes-per-file: ["error", 4] */
 import { displayLigthModal, addLike } from '../pages/photographer.js';
+// import { displayModal } from '../utils/contactForm.js';
 /**
  * handle media image
  */
@@ -59,7 +60,6 @@ export function photographerDetail(photographer) {
         <h2>${photographer.city}, ${photographer.country}</h2>
         <p>${photographer.tagline}</p>
         <div class="priceInfo"><span id="price"></span><i class="fas fa-heart"></i>${photographer.price}€/jour</div>
-        
     </div>
     <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     <div class="photographer-img">
@@ -132,3 +132,4 @@ export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   }
   return { getlightBoxCardDOM };
 }
+// changer class or function factory open close affichage prev next

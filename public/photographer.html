@@ -33,33 +33,37 @@
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
-  <div id="contact_modal">
+  <div id="contact-modal">
     <div class="modal">
       <header>
         <div>
           <h1>Contactez-moi</h1>
-          <p id="user-name"></p>
+          <p id="name">${userInfo.name}</p>
         </div>
-        <img src="./assets/icons/close.svg" onclick="closeModal()" />
+        <img id="closeModal" src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
-      <form>
-        <div>
+      <form id="contactForm" action="photographer.html?id=${userInfo.id}" method="get">
+        <div class="input-control">
           <label for="firstName">Prénom</label>
-          <input id="firstName" name="firstName" type="text" required />
+          <input class="inputContent" id="firstName" name="firstName" type="text" />
+          <div class="error-message" id="first-error"></div>
         </div>
-        <div>
+        <div class="input-control">
           <label for="lastName">Nom</label>
-          <input id="lastName" name="lastName" type="text" required />
+          <input class="inputContent" id="lastName" name="lastName" type="text" />
+          <div class="error-message" id="last-error"></div>
         </div>
-        <div>
+        <div class="input-control">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" required />
+          <input class="inputContent" id="email" name="email" type="email" />
+          <div class="error-message" id="email-error"></div>
         </div>
-        <div>
+        <div class="input-control">
           <label for="message">Votre message</label>
-          <textarea id="message" name="message" rows="6"></textarea>
+          <textarea class="inputContent" id="message" name="message" rows="6"></textarea>
+          <div class="error-message" id="message-error"></div>
         </div>
-        <button class="contact_button">Envoyer</button>
+        <input type="submit" class="contact-button" value="Envoyer" />
       </form>
     </div>
   </div>
@@ -76,9 +80,9 @@
       <div class="carousel__button--prev"></div>
     </div>
   </div>
-  <script type="module" src="../src/pages/photographer.js"></script>
-  <script type="module" src="../src/utils/carrousel.js"></script>
   <script type="module" src="../src/utils/contactForm.js"></script>
+  <script type="module" src="../src/pages/photographer.js"></script>
+  <!-- <script type="module" src="../src/utils/carrousel.js"></script> -->
 </body>
 
 </html>

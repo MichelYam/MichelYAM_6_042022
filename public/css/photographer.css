@@ -126,7 +126,7 @@ main {
 }
 
 /* Modal media */
-#contact_modal {
+#contact-modal {
     display: none;
     position: fixed;
     z-index: 1;
