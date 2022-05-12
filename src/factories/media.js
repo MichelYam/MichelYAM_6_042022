@@ -1,7 +1,9 @@
 /* eslint-disable import/no-cycle */
 /* eslint max-classes-per-file: ["error", 4] */
 import { displayLigthModal, addLike } from '../pages/photographer.js';
-
+/**
+ * handle media image
+ */
 class MediaImage {
   constructor(media, photographerName) {
     this._image = media.image;
@@ -15,7 +17,9 @@ class MediaImage {
             alt="${this._photographerName} ${this._image}" />`);
   }
 }
-
+/**
+ * handle media video
+ */
 class MediaVideo {
   constructor(media, photographerName) {
     this._video = media.video;
@@ -31,6 +35,9 @@ class MediaVideo {
 }
 
 /* eslint no-underscore-dangle: 0 */
+/**
+ * check if its video or image
+ */
 class MediaFactory {
   static getMediaType(media, photographerName) {
     const mediaElement = media.video === undefined
@@ -41,7 +48,7 @@ class MediaFactory {
 }
 
 /**
- *get all information about photographer
+ * return photographer info
  * @param {array} photographer
  * @returns
  */
@@ -60,14 +67,12 @@ export function photographerDetail(photographer) {
     </div>
     `);
 }
-// <div class="price"><div> 297 081 <i class="fas fa-heart"></i></div>${photographer.price}€/jour</div>
 /**
  * get all media from a photographer
  * @param {array} media
  * @param {string} photographerName
  * @returns
  */
-
 export function photographerMediaList(media, photographerName) {
   const { likes, title, id } = media;
   const mediaFactory = MediaFactory.getMediaType(media, photographerName).render();
@@ -108,7 +113,13 @@ export function photographerMediaList(media, photographerName) {
   }
   return { getMediasCardDOM };
 }
-
+/**
+ * returns the HTML structure of an image or video
+ * @param {array} filterCurrent
+ * @param {string} photographerInfo
+ * @param {id} imageID
+ * @returns
+ */
 export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
   const mediaFactory = MediaFactory.getMediaType(filterCurrent[imageID], photographerName).render();

@@ -6,7 +6,12 @@ import {
 } from '../factories/media.js';
 
 let filter = [];
+const filterSelect = document.getElementById('media-select');
 /* eslint eqeqeq: ["error", "always"] */
+/**
+ * get photographer and media data
+ * @returns object
+ */
 async function getPhotographers() {
   const data = await fetch('../../data/photographers.json')
     .then((res) => res.json())
@@ -14,14 +19,20 @@ async function getPhotographers() {
   return data;
 }
 
-// get user ID from url
+/**
+ * get id form url
+ * @returns id
+ */
 const getIdOfUser = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
   return id;
 };
-
+/**
+ * get user info
+ * @returns array
+ */
 export default async function getUserInfo() {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
@@ -29,7 +40,9 @@ export default async function getUserInfo() {
   return photographerInfo;
 }
 
-// display data of the user
+/**
+ * display user data
+ */
 const displayUserData = async () => {
   const photographerInfo = await getUserInfo();
   const photographerSection = document.querySelector('.photograph-header');
@@ -37,8 +50,13 @@ const displayUserData = async () => {
 };
 
 displayUserData();
-// // <----- media ----->
 
+// // <----- media ----->
+/**
+ * get all media from specific user
+ * @param {id} userID
+ * @returns array
+ */
 const getUserMediaByID = async (userID) => {
   const { media } = await getPhotographers();
   // eslint-disable-next-line eqeqeq
@@ -83,8 +101,6 @@ const displayUserMedias = async () => {
   getLikes();
 };
 
-// Filter
-const filterSelect = document.getElementById('media-select');
 /**
  * get array of photographer depending on the filter
  * @returns {array}
@@ -124,9 +140,9 @@ filterSelect.addEventListener('change', getFilterCurrent);
  *  manages the previous direction in lightbox
  * @param {array} filterCurrent
  * @param {string} photographerInfo
- * @param {int} imageID
+ * @param {id} imageID
  * @param {string} mediaSection
- * @returns
+ * @returns id
  */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
@@ -144,7 +160,7 @@ export const previousImage = (filterCurrent, photographerInfo, imageID, mediaSec
  *  manages the next direction in lightbox
  * @param {array} filterCurrent
  * @param {string} photographerInfo
- * @param {int} imageID
+ * @param {id} imageID
  * @param {string} mediaSection
  * @returns
  */
@@ -159,11 +175,11 @@ export const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection
   return imageID;
 };
 
+// eslint-disable-next-line no-unused-vars
 /**
  * handle lightBox
- * @param {int} mediaID
+ * @param {id} mediaID
  */
-// eslint-disable-next-line no-unused-vars
 export async function displayLigthModal(mediaID) {
   const mediaSection = document.querySelector('.caroussel-content');
   const modalSection = document.getElementById('lightbox_modal');
@@ -200,7 +216,10 @@ export async function displayLigthModal(mediaID) {
     }
   });
 }
-
+/**
+ *  add or remove like on click
+ * @param {id} mediaID
+ */
 export async function addLike(mediaID) {
   const userId = getIdOfUser();
   const allmedia = await getUserMediaByID(userId);
@@ -212,27 +231,15 @@ export async function addLike(mediaID) {
       console.log('ajouté');
       likeDiv.textContent = element.likes + 1;
       totalLike += 1;
-      console.log(totalLike);
       articleSection.classList.add('liked');
     } else if (element.id === mediaID && articleSection.classList.contains('liked')) {
       console.log('delete');
       likeDiv.textContent = element.likes;
       totalLike -= 1;
-      console.log(totalLike);
       articleSection.classList.remove('liked');
     }
     getLikes();
   });
-  // allmedia.forEach((element) => {
-  //   const likeDiv = document.querySelector(`article[data-id= '${element.id}'] #like`);
-  //   const articleSection = document.querySelector(`article[data-id= '${element.id}']`);
-  //   //     // if (articleSection.classList.contains("liked") && element.id === mediaID) {
-  //   if (parseInt(likeDiv.innerHTML, 10) === element.likes + 1) {
-  //     likeDiv.innerHTML = element.likes;
-  //     totalLike -= 1;
-  //     articleSection.classList.remove('liked');
-  //   }
-  // });
 }
 /**
  * close lightbox modal
@@ -241,11 +248,10 @@ const closeLightModal = () => {
   const lightModal = document.getElementById('lightbox_modal');
   lightModal.classList.remove('active');
 };
-const closeM = document.querySelector('.close');
-console.log(closeM);
-closeM.addEventListener('click', closeLightModal);
 
 async function init() {
+  const closeM = document.querySelector('.close');
+  closeM.addEventListener('click', closeLightModal);
   const userID = getIdOfUser();
   const photographerMedia = await getUserMediaByID(userID);
   filter = photographerMedia.sort((a, b) => b.likes - a.likes);

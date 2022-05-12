@@ -1,3 +1,8 @@
+/**
+ *returns the HTML structure of all photographer in database
+ * @param {array} data
+ * @returns
+ */
 export default function photographerFactory(data) {
   function getUserCardDOM() {
     return data.map((photographer) => (
