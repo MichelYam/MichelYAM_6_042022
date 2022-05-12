@@ -35,7 +35,7 @@ main {
     font-size: 20px;
 }
 
-.photograph-header .photographer-text .price {
+.photograph-header .photographer-text .priceInfo {
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -57,7 +57,9 @@ main {
     object-fit: cover;
 }
 
-
+.photograph-header .photographer-text .priceInfo #price span {
+    margin-left: -36px;
+}
 /* <====== section media ======>*/
 
 .photographer_media_section {
@@ -65,6 +67,7 @@ main {
     grid-template-columns: repeat(3, 1fr);
     margin: 0 100px;
     grid-gap: 110px;
+    margin-bottom: 150px;
 }
 
 .photographer_media_section .medial-container {
@@ -88,10 +91,12 @@ main {
 .medial-container div span i {
     margin-left: 8px;
 }
-.photographer_media_section .medial-container .photographer-media{
+
+.photographer_media_section .medial-container .photographer-media {
     width: 100%;
     height: 100%;
 }
+
 .photographer_media_section .medial-container video, .photographer_media_section .medial-container img {
     width: 100%;
     border-radius: 10px;
@@ -179,6 +184,30 @@ main {
     text-align: left;
 }
 
+.error-message {
+    font-size: 18px;
+    color: red;
+    display: none;
+}
+
+/* handle  border, message error  */
+.bordernone {
+    border: none;
+}
+
+.border-red {
+    border: 3px solid red;
+}
+
+.border-green {
+    border: 3px solid #279e7a;
+}
+
+.displayError {
+    display: block;
+}
+
+/* contact form */
 form {
     display: flex;
     width: 100%;
@@ -241,6 +270,7 @@ form input, form textarea {
     margin: auto;
     animation-name: modalAnimation;
 }
+
 /* close modal */
 
 .carrousel .close {
@@ -327,6 +357,14 @@ form input, form textarea {
 .carousel__button--next::after {
     left: 47%;
     transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.active {
+    display: flex;
+}
+
+.hidden {
+    display: none;
 }
 
 @keyframes modalAnimation {

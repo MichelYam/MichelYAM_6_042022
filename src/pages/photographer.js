@@ -1,8 +1,11 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable eqeqeq */
 // eslint-disable-next-line import/no-cycle
 import {
   photographerDetail, photographerMediaList, lightboxFactory,
 } from '../factories/media.js';
+
+let filter = [];
 /* eslint eqeqeq: ["error", "always"] */
 async function getPhotographers() {
   const data = await fetch('../../data/photographers.json')
@@ -52,7 +55,20 @@ const getUserMedias = async (photographerMedia, photographerName) => {
     mediaSection.appendChild(mediaCardDOM);
   });
 };
+// /**
+//  * get total of likes
+//  */
+const getLikes = () => {
+  const getElementDOM = document.getElementById('price');
+  const elementDom = document.querySelectorAll('#like');
+  let totalLike = 0;
 
+  elementDom.forEach((item) => {
+    totalLike += parseInt(item.textContent, 10);
+  });
+  getElementDOM.innerHTML = totalLike;
+  return totalLike;
+};
 /**
  * display data of the user
  *
@@ -60,51 +76,49 @@ const getUserMedias = async (photographerMedia, photographerName) => {
 const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  const photographerMedia = await getUserMediaByID(userID);
-  const filter = photographerMedia.sort((a, b) => b.likes - a.likes);
+  // const photographerMedia = await getUserMediaByID(userID);
   const photographerName = photographers.find((element) => element.id == userID)
     .name.split(' ')[0].replace('-', ' ');
   getUserMedias(filter, photographerName);
+  getLikes();
 };
-displayUserMedias();
 
 // Filter
-const filter = document.getElementById('media-select');
+const filterSelect = document.getElementById('media-select');
 /**
  * get array of photographer depending on the filter
  * @returns {array}
  */
 export const getFilterCurrent = async () => {
-  let filterCurrent = [];
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
   const photographerName = photographers.find((element) => element.id == userID)
     .name.split(' ')[0].replace('-', ' ');
   const photographerMedia = await getUserMediaByID(userID);
-  switch (filter.value) {
+  switch (filterSelect.value) {
     case 'popularity': {
       const filterByPopularity = photographerMedia.sort((a, b) => b.likes - a.likes);
-      filterCurrent = filterByPopularity;
+      filter = filterByPopularity;
     }
       break;
     case 'date': {
       const filterByDate = photographerMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
-      filterCurrent = filterByDate;
+      filter = filterByDate;
     }
       break;
     case 'title': {
       const filterByTitle = photographerMedia.sort((a, b) => (a.title < b.title ? -1 : 1));
-      filterCurrent = filterByTitle;
+      filter = filterByTitle;
       break;
     }
     default:
       console.log(filter.value);
   }
-  getUserMedias(filterCurrent, photographerName);
-  return filterCurrent;
+  getUserMedias(filter, photographerName);
+  return filter;
 };
 
-filter.addEventListener('change', getFilterCurrent);
+filterSelect.addEventListener('change', getFilterCurrent);
 
 /**
  *  manages the previous direction in lightbox
@@ -115,11 +129,11 @@ filter.addEventListener('change', getFilterCurrent);
  * @returns
  */
 /* eslint no-param-reassign: ["error", { "props": false }] */
-const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+export const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
   if (imageID === 0) {
-    imageID.prop = filterCurrent.length - 1;
+    imageID = filterCurrent.length - 1;
   } else {
-    imageID.prop -= 1;
+    imageID -= 1;
   }
   mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
     .getlightBoxCardDOM();
@@ -134,11 +148,11 @@ const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) =
  * @param {string} mediaSection
  * @returns
  */
-const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
+export const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
   if (imageID === filterCurrent.length - 1) {
-    imageID.prop = 0;
+    imageID = 0;
   } else {
-    imageID.prop += 1;
+    imageID += 1;
   }
   mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
     .getlightBoxCardDOM();
@@ -149,17 +163,17 @@ const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
  * handle lightBox
  * @param {int} mediaID
  */
-async function displayLigthModal(mediaID) {
+// eslint-disable-next-line no-unused-vars
+export async function displayLigthModal(mediaID) {
   const mediaSection = document.querySelector('.caroussel-content');
   const modalSection = document.getElementById('lightbox_modal');
-  modalSection.classList.replace('hidden', 'active');
+  modalSection.classList.add('active');
   const photographerInfo = await getUserInfo();
-  const filterCurrent = getFilterCurrent();
+  const filterCurrent = !filter ? getFilterCurrent() : filter;// changer
   const image = filterCurrent.find((element) => element.id == mediaID);
   let imageID = filterCurrent.indexOf(image);
-  const ligthboxCardDOM = lightboxFactory(filterCurrent, photographerInfo, imageID)
+  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
     .getlightBoxCardDOM();
-  mediaSection.innerHTML = ligthboxCardDOM;
   const leftArrow = document.querySelector('.carousel__button--prev');
   const rightArrow = document.querySelector('.carousel__button--next');
 
@@ -187,52 +201,55 @@ async function displayLigthModal(mediaID) {
   });
 }
 
-/**
- * Insert total number of likes
- */
-const getLikes = () => {
-  // const userId = getIdOfUser()
-  // const allmedia = await getUserMediaByID(userId);
-  // allmedia.forEach(element => {
-  //     totalLike += element.likes
-  // });
-  // getElementDOM.innerHTML = totalLike;
-  // return totalLike;
-  const getElementDOM = document.getElementById('price');
-  const elementDom = document.querySelectorAll('#like');
-  let totalLike = 0;
-
-  elementDom.forEach((item) => {
-    totalLike += parseInt(item.textContent);
-  });
-  getElementDOM.innerHTML = totalLike;
-  return totalLike;
-};
-/**
- * add Like on click
- * @param {*} mediaID
- */
-const addLike = async (mediaID) => {
+export async function addLike(mediaID) {
   const userId = getIdOfUser();
   const allmedia = await getUserMediaByID(userId);
   let totalLike = getLikes();
   allmedia.forEach((element) => {
-    const articleSection = document.querySelector(`article[data-id='${element.id}']`);
     const likeDiv = document.querySelector(`article[data-id='${element.id}'] #like`);
-    if (element.id === mediaID) {
-      likeDiv.innerHTML = element.likes + 1;
-      totalLike++;
+    const articleSection = document.querySelector(`article[data-id='${element.id}']`);
+    if (element.id === mediaID && !articleSection.classList.contains('liked')) {
+      console.log('ajouté');
+      likeDiv.textContent = element.likes + 1;
+      totalLike += 1;
+      console.log(totalLike);
       articleSection.classList.add('liked');
-    }
-  });
-  allmedia.forEach((element) => {
-    const likeDiv = document.querySelector(`article[data-id= '${element.id}'] #like`);
-    const articleSection = document.querySelector(`article[data-id= '${element.id}']`);
-    //     // if (articleSection.classList.contains("liked") && element.id === mediaID) {
-    if (parseInt(likeDiv.innerHTML) === element.likes + 1) {
-      likeDiv.innerHTML = element.likes;
-      totalLike--;
+    } else if (element.id === mediaID && articleSection.classList.contains('liked')) {
+      console.log('delete');
+      likeDiv.textContent = element.likes;
+      totalLike -= 1;
+      console.log(totalLike);
       articleSection.classList.remove('liked');
     }
+    getLikes();
   });
+  // allmedia.forEach((element) => {
+  //   const likeDiv = document.querySelector(`article[data-id= '${element.id}'] #like`);
+  //   const articleSection = document.querySelector(`article[data-id= '${element.id}']`);
+  //   //     // if (articleSection.classList.contains("liked") && element.id === mediaID) {
+  //   if (parseInt(likeDiv.innerHTML, 10) === element.likes + 1) {
+  //     likeDiv.innerHTML = element.likes;
+  //     totalLike -= 1;
+  //     articleSection.classList.remove('liked');
+  //   }
+  // });
+}
+/**
+ * close lightbox modal
+ */
+const closeLightModal = () => {
+  const lightModal = document.getElementById('lightbox_modal');
+  lightModal.classList.remove('active');
 };
+const closeM = document.querySelector('.close');
+console.log(closeM);
+closeM.addEventListener('click', closeLightModal);
+
+async function init() {
+  const userID = getIdOfUser();
+  const photographerMedia = await getUserMediaByID(userID);
+  filter = photographerMedia.sort((a, b) => b.likes - a.likes);
+  displayUserMedias();
+}
+
+init();

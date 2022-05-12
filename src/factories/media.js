@@ -1,4 +1,6 @@
+/* eslint-disable import/no-cycle */
 /* eslint max-classes-per-file: ["error", 4] */
+import { displayLigthModal, addLike } from '../pages/photographer.js';
 
 class MediaImage {
   constructor(media, photographerName) {
@@ -49,7 +51,8 @@ export function photographerDetail(photographer) {
         <h1>${photographer.name}</h1>
         <h2>${photographer.city}, ${photographer.country}</h2>
         <p>${photographer.tagline}</p>
-        <div class="price"><div> 297 081 <i class="fas fa-heart"></i></div>${photographer.price}€/jour</div>
+        <div class="priceInfo"><span id="price"></span><i class="fas fa-heart"></i>${photographer.price}€/jour</div>
+        
     </div>
     <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     <div class="photographer-img">
@@ -57,6 +60,7 @@ export function photographerDetail(photographer) {
     </div>
     `);
 }
+// <div class="price"><div> 297 081 <i class="fas fa-heart"></i></div>${photographer.price}€/jour</div>
 /**
  * get all media from a photographer
  * @param {array} media
@@ -75,39 +79,43 @@ export function photographerMediaList(media, photographerName) {
     i.setAttribute('class', 'fas fa-heart');
 
     const span = document.createElement('span');
+    span.setAttribute('id', 'like');
     span.textContent = likes;
-    span.appendChild(i);
 
-    // button_element.setAttribute('onclick', 'doSomething();');
     const mediaAssets = document.createElement('div');
     mediaAssets.innerHTML = mediaFactory;
     mediaAssets.setAttribute('class', 'photographer-media');
-    mediaAssets.setAttribute('onclick', `displayLigthModal(${id})`);
+    // mediaAssets.setAttribute('onclick', displayLigthModal(id));
+    mediaAssets.addEventListener('click', () => {
+      displayLigthModal(id);
+    });
+
+    const likeDiv = document.createElement('div');
+    likeDiv.addEventListener('click', () => {
+      addLike(id);
+    });
+    likeDiv.append(span, i);
 
     const div = document.createElement('div');
-    div.append(h2, span);
+    div.append(h2, likeDiv);
 
-    const divContainer = document.createElement('div');
-    divContainer.setAttribute('class', 'medial-container');
-    divContainer.append(mediaAssets);
-    divContainer.append(div);
+    const articleContainer = document.createElement('article');
+    articleContainer.setAttribute('class', 'medial-container');
+    articleContainer.setAttribute('data-id', `${id}`);
+    articleContainer.append(mediaAssets, div);
 
-    return divContainer;
+    return articleContainer;
   }
   return { getMediasCardDOM };
 }
 
 export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
   const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
+  const mediaFactory = MediaFactory.getMediaType(filterCurrent[imageID], photographerName).render();
   function getlightBoxCardDOM() {
     return (` 
           <div class="carrousel-img">
-          ${filterCurrent[imageID].video === undefined
-        ? `<img src="./assets/images/media/${photographerName}/${filterCurrent[imageID].image}" alt="${photographerName} ${filterCurrent[imageID].image}" />`
-        : `<video controls>
-                    <source src="./assets/images/media/${photographerName}/${filterCurrent[imageID].video}" type="video/mp4" />
-                </video>`
-      }
+            ${mediaFactory}
             <h2>${filterCurrent[imageID].title}</h2>
           </div>`);
   }
