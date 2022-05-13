@@ -222,27 +222,22 @@ export async function displayLigthModal(mediaID) {
  * @param {id} mediaID
  */
 export async function addLike(mediaID) {
-  const userId = getIdOfUser();
-  const allmedia = await getUserMediaByID(userId);
   const getElementDOM = document.getElementById('price');
   let totalLike = getLikes();
-  allmedia.forEach((element) => {
-    const likeDiv = document.querySelector(`article[data-id='${element.id}'] #like`);
-    const articleSection = document.querySelector(`article[data-id='${element.id}']`);
-    if (element.id === mediaID && !articleSection.classList.contains('liked')) {
-      console.log('ajouté');
-      likeDiv.textContent = element.likes + 1;
-      totalLike += 1;
-      articleSection.classList.add('liked');
-    } else if (element.id === mediaID && articleSection.classList.contains('liked')) {
-      console.log('delete');
-      likeDiv.textContent = element.likes;
-      totalLike -= 1;
-      articleSection.classList.remove('liked');
-    }
-    getElementDOM.innerHTML = totalLike;
-    // change
-  });
+  const likeDiv = document.querySelector(`article[data-id='${mediaID}'] #like`);
+  const articleSection = document.querySelector(`article[data-id='${mediaID}']`);
+  if (!articleSection.classList.contains('liked')) {
+    // console.log('ajouté');
+    likeDiv.textContent = parseInt(likeDiv.textContent, 10) + 1;
+    totalLike += 1;
+    articleSection.classList.add('liked');
+  } else if (articleSection.classList.contains('liked')) {
+    // console.log('delete');
+    likeDiv.textContent = parseInt(likeDiv.textContent, 10) - 1;
+    totalLike -= 1;
+    articleSection.classList.remove('liked');
+  }
+  getElementDOM.innerHTML = totalLike;
 }
 /**
  * close lightbox modal
