@@ -224,6 +224,7 @@ export async function displayLigthModal(mediaID) {
 export async function addLike(mediaID) {
   const userId = getIdOfUser();
   const allmedia = await getUserMediaByID(userId);
+  const getElementDOM = document.getElementById('price');
   let totalLike = getLikes();
   allmedia.forEach((element) => {
     const likeDiv = document.querySelector(`article[data-id='${element.id}'] #like`);
@@ -239,7 +240,7 @@ export async function addLike(mediaID) {
       totalLike -= 1;
       articleSection.classList.remove('liked');
     }
-    getLikes();
+    getElementDOM.innerHTML = totalLike;
     // change
   });
 }
