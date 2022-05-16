@@ -26,6 +26,7 @@ const emailError = document.getElementById('email-error');
 const messageError = document.getElementById('message-error');
 
 // regex handle email model
+// eslint-disable-next-line no-useless-escape
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // regex for handle special characters
@@ -34,6 +35,7 @@ const regexName = /^[a-zA-Zéèà\s]+$/;
 const isEmpty = (dataInput) => (!dataInput.value);
 // show a message in case of error or succes
 function showMessage(input, inputBorder, error, result) {
+  // eslint-disable-next-line no-param-reassign
   input.innerText = error; // return the message in the html page
   input.classList.add('displayError');
   if (inputBorder !== false) {

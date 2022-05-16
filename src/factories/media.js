@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint max-classes-per-file: ["error", 4] */
-import { displayLigthModal, addLike } from '../pages/photographer.js';
+import { addLike } from '../pages/photographer.js';
+import LightBox from './lightBox.js';
 // import { displayModal } from '../utils/contactForm.js';
 /**
  * handle media image
@@ -39,11 +40,11 @@ class MediaVideo {
 /**
  * check if its video or image
  */
-class MediaFactory {
+export class MediaFactory {
   static getMediaType(media, photographerName) {
     const mediaElement = media.video === undefined
-      ? new MediaImage(media, photographerName)
-      : new MediaVideo(media, photographerName);
+      ? new MediaImage(media, photographerName).render()
+      : new MediaVideo(media, photographerName).render();
     return mediaElement;
   }
 }
@@ -73,10 +74,10 @@ export function photographerDetail(photographer) {
  * @param {string} photographerName
  * @returns
  */
-export function photographerMediaList(media, photographerName) {
+export function photographerMediaList(photographerMedia, media, photographerName) {
   const { likes, title, id } = media;
-  const mediaFactory = MediaFactory.getMediaType(media, photographerName).render();
-  // const picture = `assets/photographers/${portrait}`;
+  const lightBox = new LightBox(photographerMedia, id, photographerName);
+  const mediaFactory = MediaFactory.getMediaType(media, photographerName);
   function getMediasCardDOM() {
     const h2 = document.createElement('h2');
     h2.textContent = title;
@@ -92,7 +93,9 @@ export function photographerMediaList(media, photographerName) {
     mediaAssets.setAttribute('class', 'photographer-media');
     // mediaAssets.setAttribute('onclick', displayLigthModal(id));
     mediaAssets.addEventListener('click', () => {
-      displayLigthModal(id);
+      // displayLigthModal(id);
+      // m1.getMediasCardDOM(id);
+      lightBox.init();
     });
 
     const likeDiv = document.createElement('div');
@@ -113,23 +116,3 @@ export function photographerMediaList(media, photographerName) {
   }
   return { getMediasCardDOM };
 }
-/**
- * returns the HTML structure of an image or video
- * @param {array} filterCurrent
- * @param {string} photographerInfo
- * @param {id} imageID
- * @returns
- */
-export function lightboxFactory(filterCurrent, photographerInfo, imageID) {
-  const photographerName = photographerInfo.name.split(' ')[0].replace('-', ' ');
-  const mediaFactory = MediaFactory.getMediaType(filterCurrent[imageID], photographerName).render();
-  function getlightBoxCardDOM() {
-    return (` 
-          <div class="carrousel-img">
-            ${mediaFactory}
-            <h2>${filterCurrent[imageID].title}</h2>
-          </div>`);
-  }
-  return { getlightBoxCardDOM };
-}
-// changer class or function factory open close affichage prev next

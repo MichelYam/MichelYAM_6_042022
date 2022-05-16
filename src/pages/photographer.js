@@ -1,8 +1,8 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable eqeqeq */
-// eslint-disable-next-line import/no-cycle
 import {
-  photographerDetail, photographerMediaList, lightboxFactory,
+  photographerDetail, photographerMediaList,
 } from '../factories/media.js';
 
 let filter = [];
@@ -67,8 +67,9 @@ const getUserMediaByID = async (userID) => {
 const getUserMedias = async (photographerMedia, photographerName) => {
   const mediaSection = document.querySelector('.photographer_media_section');
   mediaSection.innerHTML = '';
+  // const lightBox = new LightBox(photographerMedia, id, photographerName);
   photographerMedia.forEach((media) => {
-    const mediaModel = photographerMediaList(media, photographerName);
+    const mediaModel = photographerMediaList(photographerMedia, media, photographerName);
     const mediaCardDOM = mediaModel.getMediasCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
@@ -95,7 +96,6 @@ const getLikes = () => {
 const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  // const photographerMedia = await getUserMediaByID(userID);
   const photographerName = photographers.find((element) => element.id == userID)
     .name.split(' ')[0].replace('-', ' ');
   getUserMedias(filter, photographerName);
@@ -136,87 +136,6 @@ export const getFilterCurrent = async () => {
 };
 
 filterSelect.addEventListener('change', getFilterCurrent);
-
-/**
- *  manages the previous direction in lightbox
- * @param {array} filterCurrent
- * @param {string} photographerInfo
- * @param {id} imageID
- * @param {string} mediaSection
- * @returns id
- */
-/* eslint no-param-reassign: ["error", { "props": false }] */
-export const previousImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
-  if (imageID === 0) {
-    imageID = filterCurrent.length - 1;
-  } else {
-    imageID -= 1;
-  }
-  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
-    .getlightBoxCardDOM();
-  return imageID;
-};
-
-/**
- *  manages the next direction in lightbox
- * @param {array} filterCurrent
- * @param {string} photographerInfo
- * @param {id} imageID
- * @param {string} mediaSection
- * @returns
- */
-export const nextImage = (filterCurrent, photographerInfo, imageID, mediaSection) => {
-  if (imageID === filterCurrent.length - 1) {
-    imageID = 0;
-  } else {
-    imageID += 1;
-  }
-  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
-    .getlightBoxCardDOM();
-  return imageID;
-};
-
-// eslint-disable-next-line no-unused-vars
-/**
- * handle lightBox
- * @param {id} mediaID
- */
-export async function displayLigthModal(mediaID) {
-  const mediaSection = document.querySelector('.caroussel-content');
-  const modalSection = document.getElementById('lightbox_modal');
-  modalSection.classList.add('active');
-  const photographerInfo = await getUserInfo();
-  const filterCurrent = !filter ? getFilterCurrent() : filter;// changer
-  const image = filterCurrent.find((element) => element.id == mediaID);
-  let imageID = filterCurrent.indexOf(image);
-  mediaSection.innerHTML = lightboxFactory(filterCurrent, photographerInfo, imageID)
-    .getlightBoxCardDOM();
-  const leftArrow = document.querySelector('.carousel__button--prev');
-  const rightArrow = document.querySelector('.carousel__button--next');
-
-  // event click
-  leftArrow.addEventListener('click', () => {
-    // console.log('gauche')
-    imageID = previousImage(filterCurrent, photographerInfo, imageID, mediaSection);
-  });
-
-  rightArrow.addEventListener('click', () => {
-    // console.log('droite')
-    imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
-  });
-
-  // keyboard key
-  document.addEventListener('keyup', (e) => {
-    // console.log(e.key)
-    if (e.key === 'ArrowLeft') {
-      imageID = previousImage(filterCurrent, photographerInfo, imageID, mediaSection);
-    } else if (e.key === 'ArrowRight') {
-      imageID = nextImage(filterCurrent, photographerInfo, imageID, mediaSection);
-    } else if (e.key === 'Escape') {
-      modalSection.classList.replace('active', 'hidden');
-    }
-  });
-}
 /**
  *  add or remove like on click
  * @param {id} mediaID
@@ -239,17 +158,11 @@ export async function addLike(mediaID) {
   }
   getElementDOM.innerHTML = totalLike;
 }
-/**
- * close lightbox modal
- */
-const closeLightModal = () => {
-  const lightModal = document.getElementById('lightbox_modal');
-  lightModal.classList.remove('active');
-};
+// /**
+//  * close lightbox modal
+//  */
 
 async function init() {
-  const closeM = document.querySelector('.close');
-  closeM.addEventListener('click', closeLightModal);
   const userID = getIdOfUser();
   const photographerMedia = await getUserMediaByID(userID);
   filter = photographerMedia.sort((a, b) => b.likes - a.likes);
