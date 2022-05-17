@@ -81,12 +81,15 @@ const getUserMedias = async (photographerMedia, photographerName) => {
 const getLikes = () => {
   const getElementDOM = document.getElementById('price');
   const elementDom = document.querySelectorAll('.media-like span');
-  console.log(elementDom);
-  let totalLike = 0;
-
+  const array = [];
   elementDom.forEach((item) => {
-    totalLike += parseInt(item.innerHTML, 10);
+    array.push(parseInt(item.innerHTML, 10));
   });
+  let totalLike = 0;
+  totalLike = array.reduce(
+    (previousValue, currentValue) => previousValue + currentValue,
+    0,
+  );
   getElementDOM.innerHTML = totalLike;
   return totalLike;
 };
@@ -150,12 +153,10 @@ export async function addLike(mediaID) {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) + 1;
     totalLike += 1;
     articleSection.classList.replace('far', 'fas');
-    console.log('ajouté');
   } else {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) - 1;
     totalLike -= 1;
     articleSection.classList.replace('fas', 'far');
-    console.log('delete');
   }
   getElementDOM.innerHTML = totalLike;
 }
