@@ -20,10 +20,10 @@
     <!-- profile user -->
     <div class="photograph-header">
     </div>
-    <!-- user medias -->
-    <div class="filter-media">
+    <!-- filter medias -->
+    <div role="menu" class="filter-media">
       <label for="filter-select">Trier par</label>
-      <select name="filter-select" id="filter-select">
+      <select id="filter-select" name="filter-select" title="Trier les medias">
         <option value="popularity">Popularité</option>
         <option value="date">Date</option>
         <option value="title">Titre</option>
@@ -62,7 +62,7 @@
           <textarea class="inputContent" id="message" name="message" rows="6"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
-        <input type="submit" class="contact-button" value="Envoyer" />
+        <input type="submit" class="contact-button" value="Envoyer" aria-label="OK, confirmer mon inscription"> />
       </form>
     </div>
   </div>
@@ -71,7 +71,7 @@
   <!-- lightbox modal -->
   <div id="lightbox-modal" class="lightbox">
     <div class="carrousel">
-      <div class="close"></div>
+      <div class="close" aria-label="Fermer la fenêtre du modal"></div>
       <div class="caroussel-content">
 
       </div>

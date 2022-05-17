@@ -80,11 +80,12 @@ const getUserMedias = async (photographerMedia, photographerName) => {
 // utiliser json reduce
 const getLikes = () => {
   const getElementDOM = document.getElementById('price');
-  const elementDom = document.querySelectorAll('#like');
+  const elementDom = document.querySelectorAll('.media-like span');
+  console.log(elementDom);
   let totalLike = 0;
 
   elementDom.forEach((item) => {
-    totalLike += parseInt(item.textContent, 10);
+    totalLike += parseInt(item.innerHTML, 10);
   });
   getElementDOM.innerHTML = totalLike;
   return totalLike;
@@ -143,18 +144,18 @@ filterSelect.addEventListener('change', getFilterCurrent);
 export async function addLike(mediaID) {
   const getElementDOM = document.getElementById('price');
   let totalLike = getLikes();
-  const likeDiv = document.querySelector(`article[data-id='${mediaID}'] #like`);
-  const articleSection = document.querySelector(`article[data-id='${mediaID}']`);
-  if (!articleSection.classList.contains('liked')) {
-    // console.log('ajouté');
+  const likeDiv = document.querySelector(`div[id='${mediaID}'] span`);
+  const articleSection = document.querySelector(`div[id='${mediaID}'] i`);
+  if (articleSection.classList.contains('far')) {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) + 1;
     totalLike += 1;
-    articleSection.classList.add('liked');
-  } else if (articleSection.classList.contains('liked')) {
-    // console.log('delete');
+    articleSection.classList.replace('far', 'fas');
+    console.log('ajouté');
+  } else {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) - 1;
     totalLike -= 1;
-    articleSection.classList.remove('liked');
+    articleSection.classList.replace('fas', 'far');
+    console.log('delete');
   }
   getElementDOM.innerHTML = totalLike;
 }

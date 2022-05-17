@@ -69,7 +69,7 @@ export default class Lightbox {
   getMediasCardDOM(mediaCurrentID) {
     const mediaFactory = MediaFactory.getMediaType(this.filter[mediaCurrentID], this.photographerName);
     return (`
-      <div class="carrousel-img">
+      <div class="carrousel-media">
         ${mediaFactory}
         <h2>${this.filter[mediaCurrentID].title}</h2>
       </div>`);

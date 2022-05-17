@@ -7,8 +7,8 @@ export default function photographerFactory(data) {
   function getUserCardDOM() {
     return data.map((photographer) => (
       `<article>
-            <a href="./photographer.html?id=${photographer.id}">
-                <img src="./assets/photographers/${photographer.portrait}" alt="photo_de_${photographer.name}"/>
+            <a href="./photographer.html?id=${photographer.id}" title="lien vers ${photographer.name} ">
+                <img src="./assets/photographers/${photographer.portrait}" alt="photo de ${photographer.name}"/>
                 <h2>${photographer.name}</h2>
             </a>
             <div>

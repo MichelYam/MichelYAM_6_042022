@@ -78,38 +78,41 @@ export function photographerMediaList(photographerMedia, media, photographerName
   const { likes, title, id } = media;
   const lightBox = new LightBox(photographerMedia, id, photographerName);
   const mediaFactory = MediaFactory.getMediaType(media, photographerName);
+  // const test = mediaFactory ? console.log('image') : console.log('video');
+  // console.log(test);
   function getMediasCardDOM() {
     const h2 = document.createElement('h2');
     h2.textContent = title;
     const i = document.createElement('i');
-    i.setAttribute('class', 'fas fa-heart');
+    i.setAttribute('class', 'far fa-heart');
+    i.setAttribute('tabindex', '0');
+    i.setAttribute('aria-label', 'like');
 
     const span = document.createElement('span');
-    span.setAttribute('id', 'like');
     span.textContent = likes;
-
     const mediaAssets = document.createElement('div');
     mediaAssets.innerHTML = mediaFactory;
     mediaAssets.setAttribute('class', 'photographer-media');
-    // mediaAssets.setAttribute('onclick', displayLigthModal(id));
     mediaAssets.addEventListener('click', () => {
-      // displayLigthModal(id);
-      // m1.getMediasCardDOM(id);
       lightBox.init();
     });
 
     const likeDiv = document.createElement('div');
+    likeDiv.setAttribute('class', 'media-like');
+    likeDiv.setAttribute('id', id);
     likeDiv.addEventListener('click', () => {
       addLike(id);
     });
     likeDiv.append(span, i);
 
     const div = document.createElement('div');
+    div.setAttribute('class', 'media-content');
     div.append(h2, likeDiv);
 
     const articleContainer = document.createElement('article');
     articleContainer.setAttribute('class', 'medial-container');
     articleContainer.setAttribute('data-id', `${id}`);
+    articleContainer.setAttribute('tabindex', '0');
     articleContainer.append(mediaAssets, div);
 
     return articleContainer;
