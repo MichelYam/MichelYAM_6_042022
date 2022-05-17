@@ -6,7 +6,7 @@ import {
 } from '../factories/media.js';
 
 let filter = [];
-const filterSelect = document.getElementById('media-select');
+const filterSelect = document.getElementById('filter-select');
 /* eslint eqeqeq: ["error", "always"] */
 /**
  * get photographer and media data

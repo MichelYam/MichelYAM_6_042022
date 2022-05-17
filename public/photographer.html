@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
@@ -23,7 +23,7 @@
     <!-- user medias -->
     <div class="filter-media">
       <label for="filter-select">Trier par</label>
-      <select name="filter-select" id="media-select">
+      <select name="filter-select" id="filter-select">
         <option value="popularity">Popularité</option>
         <option value="date">Date</option>
         <option value="title">Titre</option>
@@ -39,7 +39,7 @@
           <h1>Contactez-moi</h1>
           <p id="name">${userInfo.name}</p>
         </div>
-        <img id="closeModal" src="assets/icons/close.svg" onclick="closeModal()" />
+        <img id="closeModal" src="assets/icons/close.svg" alt="icon close" onclick="closeModal()" />
       </header>
       <form id="contactForm" action="photographer.html?id=${userInfo.id}" method="get">
         <div class="input-control">
