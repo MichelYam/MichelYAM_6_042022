@@ -8,7 +8,8 @@ async function displayModal() {
   modal.style.display = 'block';
   const name = document.getElementById('name');
   const userInfo = await getUserInfo();
-  name.innerHTML = userInfo.name;
+  name.setAttribute('aria-labelledby', `Contact me ${userInfo.name}`);
+  name.innerHTML += userInfo.name;
 }
 
 document.displayModal = displayModal;

@@ -73,6 +73,12 @@ const getUserMedias = async (photographerMedia, photographerName) => {
     const mediaCardDOM = mediaModel.getMediasCardDOM();
     mediaSection.appendChild(mediaCardDOM);
   });
+  const mediaVideo = document.querySelector('.photographer-media video');
+  const mediaVideoContainer = document.querySelector('.photographer-media');
+  const i = document.createElement('i');
+  i.setAttribute('class', 'fas fa-video');
+  mediaVideoContainer.append(i);
+  mediaVideo.removeAttribute('controls');
 };
 // /**
 //  * get total of likes

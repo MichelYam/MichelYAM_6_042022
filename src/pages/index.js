@@ -23,7 +23,6 @@ const displayData = async (photographers) => {
 
 const init = async () => {
   const { photographers } = await getPhotographers();
-  console.log(photographers);
   // Récupère les datas des photographes
   displayData(photographers);
 };

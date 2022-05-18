@@ -89,3 +89,51 @@ a {
     color: #525252;
 }
 
+/* responsive */
+
+@media screen and (max-width: 960px) {
+    body {
+        width: 100%;
+        padding: 20px;
+    }
+    header a .logo {
+        margin-left: 0;
+    }
+
+    .title {
+        margin: 0;
+    }
+
+    .photographer_section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    body {
+        width: 100%;
+        padding: 20px;
+    }
+
+    header {
+        flex-direction: column;
+    }
+
+    header a {
+        padding: 20px;
+    }
+
+    header a .logo {
+        margin-left: 0;
+    }
+
+    header .title {
+        margin: 0;
+    }
+
+    .photographer_section {
+        width: 100%;
+        grid-template-columns: 1fr;
+        margin-top: 75px;
+    }
+}

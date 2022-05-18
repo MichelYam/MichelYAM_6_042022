@@ -16,7 +16,7 @@ class MediaImage {
   render() {
     return (`<img 
             src="./assets/images/media/${this._photographerName}/${this._image}"
-            alt="${this._photographerName} ${this._image}" />`);
+            alt="${this._image}" />`);
   }
 }
 /**
@@ -31,8 +31,7 @@ class MediaVideo {
 
   render() {
     return (`
-      <i class="fas fa-video"></i>
-      <video id="mediaVideo">
+      <video controls id="mediaVideo" title="${this._video}">
         <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
       </video>`);
   }
@@ -64,7 +63,7 @@ export function photographerDetail(photographer) {
         <p>${photographer.tagline}</p>
         <div class="priceInfo"><span id="price"></span><i class="fas fa-heart"></i>${photographer.price}€/jour</div>
     </div>
-    <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+    <button class="contact_button" onclick="displayModal()" aria-label="Contact me">Contactez-moi</button>
     <div class="photographer-img">
         <img src="./assets/photographers/${photographer.portrait}" alt="${photographer.name}"/>
     </div>
@@ -93,7 +92,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
 
     const span = document.createElement('span');
     span.textContent = likes;
-
+    span.setAttribute('aria-label', 'likes');
     const mediaAssets = document.createElement('div');
     mediaAssets.innerHTML = mediaFactory;
     mediaAssets.setAttribute('class', 'photographer-media');
@@ -103,12 +102,6 @@ export function photographerMediaList(photographerMedia, media, photographerName
 
     const iconVideo = document.createElement('i');
     iconVideo.setAttribute('class', 'fas fa-video');
-    // const mediaVideo = document.getElementById('mediaVideo');
-    // console.log(mediaVideo);
-    // if (isVideo) {
-    //   mediaAssets.append(iconVideo);
-    //   console.log('rzrqs');
-    // }
 
     const likeDiv = document.createElement('div');
     likeDiv.setAttribute('class', 'media-like');

@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
   <title>Fisheye - photographe </title>
   <!-- font awesome -->
@@ -32,44 +34,43 @@
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
-  <div role="dialog" id="contact-modal">
+  <div role="dialog" id="contact-modal" aria-labelledby="titreDialogue">
     <div class="modal">
       <header>
-        <div>
-          <h1>Contactez-moi</h1>
-          <p id="name">${userInfo.name}</p>
-        </div>
-        <img id="closeModal" src="assets/icons/close.svg" alt="icon close" onclick="closeModal()" />
+        <h1 id="name">Contactez-moi<br></h1>
+        <!-- <p id="name">${userInfo.name}</p> -->
+        <img id="closeModal" src="assets/icons/close.svg" alt="icon close" onclick="closeModal()"
+          aria-label="Ferme le formulaire de contact" />
       </header>
       <form id="contactForm" action="photographer.html?id=${userInfo.id}" method="get">
         <div class="input-control">
           <label for="firstName">Prénom</label>
-          <input class="inputContent" id="firstName" name="firstName" type="text" />
+          <input class="inputContent" id="firstName" name="firstName" type="text" aria-labelledby="First name" />
           <div class="error-message" id="first-error"></div>
         </div>
         <div class="input-control">
           <label for="lastName">Nom</label>
-          <input class="inputContent" id="lastName" name="lastName" type="text" />
+          <input class="inputContent" id="lastName" name="lastName" type="text" aria-labelledby="Last name" />
           <div class="error-message" id="last-error"></div>
         </div>
         <div class="input-control">
           <label for="email">Email</label>
-          <input class="inputContent" id="email" name="email" type="email" />
+          <input class="inputContent" id="email" name="email" type="email" aria-labelledby="Email" />
           <div class="error-message" id="email-error"></div>
         </div>
         <div class="input-control">
           <label for="message">Votre message</label>
-          <textarea class="inputContent" id="message" name="message" rows="6"></textarea>
+          <textarea class="inputContent" id="message" name="message" rows="6" aria-labelledby="Your message"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
-        <input type="submit" class="contact-button" value="Envoyer" aria-label="OK, confirmer mon inscription"> />
+        <input type="submit" class="contact-button" value="Envoyer" aria-label="OK, confirmer mon inscription">
       </form>
     </div>
   </div>
 
 
   <!-- lightbox modal -->
-  <div role="dialog" id="lightbox-modal" class="lightbox">
+  <div role="dialog" id="lightbox-modal" class="lightbox" aria-label="image closed view" aria-hidden='false' ;>
     <div class="carrousel">
       <div class="close" aria-label="Fermer la modale"></div>
       <div class="caroussel-content">
