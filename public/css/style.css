@@ -12,6 +12,8 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 90px;
+    margin: 0 100px;
+    padding: 20px 0;
 }
 
 h1 {
@@ -24,10 +26,12 @@ h1, h2, h3, p {
     font-weight: 400;
     letter-spacing: 1px;
 }
-
-.logo {
+header a{
     height: 50px;
-    margin-left: 100px;
+}
+.logo {
+    height: 100%;
+    object-fit: cover;
 }
 
 a {

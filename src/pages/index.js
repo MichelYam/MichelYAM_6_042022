@@ -1,6 +1,8 @@
 import photographerFactory from '../factories/photographer.js';
-// import Api from '../api/api';
+// import { PhotographerApi } from '../api/api';
 
+// const photographersList = new PhotographerApi('./data/photographers.json');
+// console.log(photographersList);
 const getPhotographers = async () => {
   // Penser à remplacer par les données récupérées dans le json
   const data = await fetch('../../data/photographers.json')

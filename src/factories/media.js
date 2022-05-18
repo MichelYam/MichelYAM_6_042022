@@ -29,6 +29,14 @@ class MediaVideo {
     this._photographerName = photographerName;
   }
 
+  // getVideoLightbox() {
+  //   return (`
+  //   <i class="fas fa-video"></i>
+  //     <video controls id="mediaVideo" title="${this._video}">
+  //       <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
+  //     </video>`);
+  // }
+
   render() {
     return (`
       <video controls id="mediaVideo" title="${this._video}">
