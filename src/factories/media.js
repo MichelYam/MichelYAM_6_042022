@@ -30,9 +30,11 @@ class MediaVideo {
   }
 
   render() {
-    return (`<video >
-              <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
-            </video>`);
+    return (`
+      <i class="fas fa-video"></i>
+      <video id="mediaVideo">
+        <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
+      </video>`);
   }
 }
 
@@ -83,6 +85,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
   function getMediasCardDOM() {
     const h2 = document.createElement('h2');
     h2.textContent = title;
+
     const i = document.createElement('i');
     i.setAttribute('class', 'far fa-heart');
     i.setAttribute('tabindex', '0');
@@ -90,12 +93,22 @@ export function photographerMediaList(photographerMedia, media, photographerName
 
     const span = document.createElement('span');
     span.textContent = likes;
+
     const mediaAssets = document.createElement('div');
     mediaAssets.innerHTML = mediaFactory;
     mediaAssets.setAttribute('class', 'photographer-media');
     mediaAssets.addEventListener('click', () => {
       lightBox.init();
     });
+
+    const iconVideo = document.createElement('i');
+    iconVideo.setAttribute('class', 'fas fa-video');
+    // const mediaVideo = document.getElementById('mediaVideo');
+    // console.log(mediaVideo);
+    // if (isVideo) {
+    //   mediaAssets.append(iconVideo);
+    //   console.log('rzrqs');
+    // }
 
     const likeDiv = document.createElement('div');
     likeDiv.setAttribute('class', 'media-like');

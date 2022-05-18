@@ -35,6 +35,11 @@ export default class Lightbox {
     document.addEventListener('keyup', (e) => {
       this.handleEvent(e);
     });
+    const video = document.querySelector('.carrousel-media video');
+    video.setAttribute('controls', 'controls');
+
+    const iconVideo = document.querySelector('.carrousel-media .fa-video');
+    iconVideo.classList.add('hidden');
   }
 
   close() {

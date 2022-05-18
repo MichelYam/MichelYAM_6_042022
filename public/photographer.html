@@ -32,7 +32,7 @@
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
-  <div id="contact-modal">
+  <div role="dialog" id="contact-modal">
     <div class="modal">
       <header>
         <div>
@@ -69,14 +69,14 @@
 
 
   <!-- lightbox modal -->
-  <div id="lightbox-modal" class="lightbox">
+  <div role="dialog" id="lightbox-modal" class="lightbox">
     <div class="carrousel">
-      <div class="close" aria-label="Fermer la fenêtre du modal"></div>
+      <div class="close" aria-label="Fermer la modale"></div>
       <div class="caroussel-content">
 
       </div>
-      <div class="carousel__button--next"></div>
-      <div class="carousel__button--prev"></div>
+      <div class="carousel__button--next" aria-label="Va à l'image suivante"></div>
+      <div class="carousel__button--prev" aria-label="Va à l'image précédent"></div>
     </div>
   </div>
   <script type="module" src="../src/utils/contactForm.js"></script>
