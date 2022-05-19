@@ -29,14 +29,6 @@ class MediaVideo {
     this._photographerName = photographerName;
   }
 
-  // getVideoLightbox() {
-  //   return (`
-  //   <i class="fas fa-video"></i>
-  //     <video controls id="mediaVideo" title="${this._video}">
-  //       <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
-  //     </video>`);
-  // }
-
   render() {
     return (`
       <video controls id="mediaVideo" title="${this._video}">
@@ -107,7 +99,12 @@ export function photographerMediaList(photographerMedia, media, photographerName
     mediaAssets.addEventListener('click', () => {
       lightBox.init();
     });
-
+    const test = document.querySelector('.photographer-media video');
+    const testt = document.createElement('i');
+    testt.setAttribute('class', 'fas fa-video');
+    if (media.video) {
+      mediaAssets.append(testt);
+    }
     const iconVideo = document.createElement('i');
     iconVideo.setAttribute('class', 'fas fa-video');
 
@@ -123,7 +120,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
     div.setAttribute('class', 'media-content');
     div.append(h2, likeDiv);
 
-    const articleContainer = document.createElement('article');
+    const articleContainer = document.createElement('div');
     articleContainer.setAttribute('class', 'medial-container');
     articleContainer.setAttribute('data-id', `${id}`);
     articleContainer.setAttribute('tabindex', '0');

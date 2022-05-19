@@ -147,8 +147,7 @@ main {
     border-radius: 5px;
     background-color: #901C1C;
     color: #fff;
-    padding: 0 10px;
-    /* text-indent: 10px; */
+    padding: 20px 25px;
     outline: none;
 }
 
@@ -421,7 +420,8 @@ form input, form textarea {
     }
 
     .photographer_media_section {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+
     }
 }
 

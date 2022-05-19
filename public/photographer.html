@@ -31,6 +31,8 @@
         <option value="title">Titre</option>
       </select>
     </div>
+
+    <!-- Media List -->
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
@@ -63,7 +65,7 @@
           <textarea class="inputContent" id="message" name="message" rows="6" aria-labelledby="Your message"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
-        <input type="submit" class="contact-button" value="Envoyer" aria-label="OK, confirmer mon inscription">
+        <button type="submit" class="contact-button" aria-label="OK, confirmer mon inscription">Envoyer</button>
       </form>
     </div>
   </div>
@@ -72,12 +74,12 @@
   <!-- lightbox modal -->
   <div role="dialog" id="lightbox-modal" class="lightbox" aria-label="image closed view" aria-hidden='false' ;>
     <div class="carrousel">
-      <div class="close" aria-label="Fermer la modale"></div>
+      <div class="close" aria-label="Fermer la modale" tabindex="0"></div>
       <div class="caroussel-content">
 
       </div>
-      <div class="carousel__button--next" aria-label="Va à l'image suivante"></div>
-      <div class="carousel__button--prev" aria-label="Va à l'image précédent"></div>
+      <div class="carousel__button--next" aria-label="Va à l'image suivante" tabindex="0"></div>
+      <div class="carousel__button--prev" aria-label="Va à l'image précédent" tabindex="0"></div>
     </div>
   </div>
   <script type="module" src="../src/utils/contactForm.js"></script>
