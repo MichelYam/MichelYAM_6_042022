@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
+/* eslint-disable eqeqeq */
 import getUserInfo from '../pages/photographer.js';
 
-// const closeModal = document.getElementById('closeModal');
+const body = document.querySelector('body');
 const modal = document.getElementById('contact-modal');
 
 // eslint-disable-next-line import/prefer-default-export
@@ -9,7 +11,9 @@ async function displayModal() {
   const name = document.getElementById('name');
   const userInfo = await getUserInfo();
   name.setAttribute('aria-labelledby', `Contact me ${userInfo.name}`);
-  name.innerHTML += userInfo.name;
+  modal.setAttribute('aria-hidden', 'false');
+  body.classList.add('no-scroll');
+  name.innerHTML = `Contactez-moi <br> ${userInfo.name}`;
 }
 
 document.displayModal = displayModal;
@@ -147,6 +151,8 @@ contactForm.addEventListener('submit', (e) => {
     };
     console.log('informations: ', dataForm);
     modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'false');
+    body.classList.remove('no-scroll');
     resetForm();
     return true;
   }
@@ -156,6 +162,8 @@ contactForm.addEventListener('submit', (e) => {
 
 function closeModal() {
   modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  body.classList.remove('no-scroll');
   resetForm();
 }
 

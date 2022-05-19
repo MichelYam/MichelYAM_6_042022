@@ -94,10 +94,11 @@ export function photographerMediaList(photographerMedia, media, photographerName
     span.textContent = likes;
     span.setAttribute('aria-label', 'likes');
     const mediaAssets = document.createElement('div');
-    mediaAssets.innerHTML = mediaFactory;
+    const mediaContent = mediaFactory;
+    mediaAssets.innerHTML = mediaContent;
     mediaAssets.setAttribute('class', 'photographer-media');
     mediaAssets.addEventListener('click', () => {
-      lightBox.init();
+      lightBox.render();
     });
 
     const iconVideo = document.createElement('i');

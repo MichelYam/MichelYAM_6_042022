@@ -36,11 +36,10 @@
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
-  <div role="dialog" id="contact-modal" aria-labelledby="titreDialogue">
+  <div role="dialog" id="contact-modal" aria-hidden="true" aria-describedby="Formulaire de contact">
     <div class="modal">
-      <header>
-        <h1 id="name">Contactez-moi<br></h1>
-        <!-- <p id="name">${userInfo.name}</p> -->
+      <header class="modal-header">
+        <h2 id="name">Contactez-moi<br></h2>
         <img id="closeModal" src="assets/icons/close.svg" alt="icon close" onclick="closeModal()"
           aria-label="Ferme le formulaire de contact" />
       </header>
@@ -65,14 +64,14 @@
           <textarea class="inputContent" id="message" name="message" rows="6" aria-labelledby="Your message"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
-        <button type="submit" class="contact-button" aria-label="OK, confirmer mon inscription">Envoyer</button>
+        <button type="submit" class="contact_button" aria-label="OK, confirmer mon inscription">Envoyer</button>
       </form>
     </div>
   </div>
 
 
   <!-- lightbox modal -->
-  <div role="dialog" id="lightbox-modal" class="lightbox" aria-label="image closed view" aria-hidden='false' ;>
+  <div role="dialog" id="lightbox-modal" class="lightbox" aria-label="image closed view" aria-hidden='true' ;>
     <div class="carrousel">
       <div class="close" aria-label="Fermer la modale" tabindex="0"></div>
       <div class="caroussel-content">

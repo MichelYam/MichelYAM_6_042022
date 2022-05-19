@@ -1,6 +1,6 @@
 main {
     position: relative;
-    
+    height: 100%;
 }
 /* css block photographers informations */
 .photograph-header {
@@ -38,7 +38,7 @@ main {
 .photograph-header .photographer-text .priceInfo {
     position: fixed;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     bottom: 0;
     right: 0;
     z-index: 1;
@@ -48,6 +48,12 @@ main {
     width: 170px;
     margin-right: 60px;
     border-radius: 5px;
+}
+.priceInfo span{
+    margin-right: 7px;
+}
+.priceInfo i{
+    margin-right: 20px;
 }
 .photograph-header .photographer-img{
     height: 200px;
@@ -141,6 +147,7 @@ main {
 .filter-media label {
     font-weight: 600;
     margin-right: 20px;
+    letter-spacing: 1px;
 }
 
 .filter-media select {
@@ -162,7 +169,9 @@ main {
     width: 100%;
     background-color: rgba(143, 142, 142, 0.4);
 }
-
+.no-scroll {
+    overflow: hidden;
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -194,16 +203,17 @@ main {
     color: #000;
 }
 
-.modal header {
+.modal .modal-header {
     justify-content: space-between;
     width: 100%;
+    margin: 0;
 }
 
-.modal header img {
+.modal .modal-header img {
     cursor: pointer;
 }
 
-.modal header h2 {
+.modal .modal-header h2 {
     font-size: 40px;
     font-weight: normal;
     text-align: center;
@@ -393,7 +403,9 @@ form input, form textarea {
 .hidden {
     display: none;
 }
-
+.no-scroll{
+    overflow-y: hidden;
+}
 @keyframes modalAnimation {
     0% {
         opacity: 0;
