@@ -25,7 +25,7 @@
     <!-- filter medias -->
     <div role="menu" class="filter-media">
       <label for="filter-select">Trier par</label>
-      <select id="filter-select" name="filter-select" title="Trier les medias">
+      <select id="filter-select" name="filter-select" title="Trier les medias" tabindex="0">
         <option value="popularity">Popularité</option>
         <option value="date">Date</option>
         <option value="title">Titre</option>
@@ -36,7 +36,7 @@
     <div class="photographer_media_section"></div>
   </main>
   <!-- modal contact -->
-  <div role="dialog" id="contact-modal" aria-hidden="true" aria-describedby="Formulaire de contact">
+  <div role="dialog" id="contact-modal" aria-hidden="true" aria-label="Formulaire de contact">
     <div class="modal">
       <header class="modal-header">
         <h2 id="name">Contactez-moi<br></h2>
@@ -46,22 +46,22 @@
       <form id="contactForm" action="photographer.html?id=${userInfo.id}" method="get">
         <div class="input-control">
           <label for="firstName">Prénom</label>
-          <input class="inputContent" id="firstName" name="firstName" type="text" aria-labelledby="First name" />
+          <input class="inputContent" id="firstName" name="firstName" type="text" />
           <div class="error-message" id="first-error"></div>
         </div>
         <div class="input-control">
           <label for="lastName">Nom</label>
-          <input class="inputContent" id="lastName" name="lastName" type="text" aria-labelledby="Last name" />
+          <input class="inputContent" id="lastName" name="lastName" type="text" />
           <div class="error-message" id="last-error"></div>
         </div>
         <div class="input-control">
           <label for="email">Email</label>
-          <input class="inputContent" id="email" name="email" type="email" aria-labelledby="Email" />
+          <input class="inputContent" id="email" name="email" type="email" />
           <div class="error-message" id="email-error"></div>
         </div>
         <div class="input-control">
           <label for="message">Votre message</label>
-          <textarea class="inputContent" id="message" name="message" rows="6" aria-labelledby="Your message"></textarea>
+          <textarea class="inputContent" id="message" name="message" rows="6"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
         <button type="submit" class="contact_button" aria-label="OK, confirmer mon inscription">Envoyer</button>
@@ -75,10 +75,9 @@
     <div class="carrousel">
       <div class="close" aria-label="Fermer la modale" tabindex="0"></div>
       <div class="caroussel-content">
-
       </div>
-      <div class="carousel__button--next" aria-label="Va à l'image suivante" tabindex="0"></div>
       <div class="carousel__button--prev" aria-label="Va à l'image précédent" tabindex="0"></div>
+      <div class="carousel__button--next" aria-label="Va à l'image suivante" tabindex="0"></div>
     </div>
   </div>
   <script type="module" src="../src/utils/contactForm.js"></script>

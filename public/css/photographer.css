@@ -129,7 +129,20 @@ main {
     margin: 0;
     position: relative;
 }
+.photographer-media:focus{
+    outline: 3px solid red;
+}
+.photographer_media_section .medial-container:focus{
+    outline: 3px solid green;
+}
+header a:focus{
 
+    outline: 3px solid red;
+}
+.logo:focus{
+
+    outline: 3px solid red;
+}
 .photographer_media_section .medial-container video, .photographer_media_section .medial-container img {
     width: 100%;
     border-radius: 10px;
@@ -183,8 +196,12 @@ main {
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.5s ease-in-out;
 }
-
+.contact_button:hover, .contact_button:focus,
+ #filter-select:hover,#filter-select:focus {
+    background-color: #D3573C;
+}
 .modal {
     position: absolute;
     border-radius: 5px;

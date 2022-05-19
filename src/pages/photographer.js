@@ -1,6 +1,5 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
-/* eslint-disable eqeqeq */
 import {
   photographerDetail, photographerMediaList,
 } from '../factories/media.js';
@@ -27,7 +26,7 @@ const getIdOfUser = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const id = urlParams.get('id');
-  return id;
+  return parseInt(id, 10);
 };
 /**
  * get user info
@@ -36,7 +35,7 @@ const getIdOfUser = () => {
 export default async function getUserInfo() {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  const photographerInfo = photographers.find((photographer) => photographer.id == userID);
+  const photographerInfo = photographers.find((photographer) => photographer.id === userID);
   return photographerInfo;
 }
 
@@ -102,7 +101,7 @@ const getLikes = () => {
 const displayUserMedias = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  const photographerName = photographers.find((element) => element.id == userID)
+  const photographerName = photographers.find((element) => element.id === userID)
     .name.split(' ')[0].replace('-', ' ');
   getUserMedias(filter, photographerName);
   getLikes();
@@ -115,7 +114,7 @@ const displayUserMedias = async () => {
 export const getFilterCurrent = async () => {
   const { photographers } = await getPhotographers();
   const userID = getIdOfUser();
-  const photographerName = photographers.find((element) => element.id == userID)
+  const photographerName = photographers.find((element) => element.id === userID)
     .name.split(' ')[0].replace('-', ' ');
   const photographerMedia = await getUserMediaByID(userID);
   switch (filterSelect.value) {

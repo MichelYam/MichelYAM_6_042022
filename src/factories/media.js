@@ -97,6 +97,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
     const mediaContent = mediaFactory;
     mediaAssets.innerHTML = mediaContent;
     mediaAssets.setAttribute('class', 'photographer-media');
+    mediaAssets.setAttribute('tabindex', '0');
     mediaAssets.addEventListener('click', () => {
       lightBox.render();
     });
@@ -119,10 +120,10 @@ export function photographerMediaList(photographerMedia, media, photographerName
     div.setAttribute('class', 'media-content');
     div.append(h2, likeDiv);
 
-    const articleContainer = document.createElement('div');
+    const articleContainer = document.createElement('article');
     articleContainer.setAttribute('class', 'medial-container');
     articleContainer.setAttribute('data-id', `${id}`);
-    articleContainer.setAttribute('tabindex', '0');
+    // articleContainer.setAttribute('tabindex', '0');
     articleContainer.append(mediaAssets, div);
 
     return articleContainer;
