@@ -99,14 +99,12 @@ export function photographerMediaList(photographerMedia, media, photographerName
     mediaAssets.addEventListener('click', () => {
       lightBox.init();
     });
-    const test = document.querySelector('.photographer-media video');
-    const testt = document.createElement('i');
-    testt.setAttribute('class', 'fas fa-video');
-    if (media.video) {
-      mediaAssets.append(testt);
-    }
+
     const iconVideo = document.createElement('i');
     iconVideo.setAttribute('class', 'fas fa-video');
+    if (media.video) {
+      mediaAssets.append(iconVideo);
+    }
 
     const likeDiv = document.createElement('div');
     likeDiv.setAttribute('class', 'media-like');
