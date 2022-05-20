@@ -9,6 +9,7 @@ import LightBox from './lightBox.js';
 class MediaImage {
   constructor(media, photographerName) {
     this._image = media.image;
+    this._title = media.title;
     this._id = media.id;
     this._photographerName = photographerName;
   }
@@ -16,7 +17,7 @@ class MediaImage {
   render() {
     return (`<img 
             src="./assets/images/media/${this._photographerName}/${this._image}"
-            alt="${this._image}" />`);
+            alt="${this._title}" />`);
   }
 }
 /**
@@ -25,13 +26,14 @@ class MediaImage {
 class MediaVideo {
   constructor(media, photographerName) {
     this._video = media.video;
+    this._title = media.title;
     this._id = media.id;
     this._photographerName = photographerName;
   }
 
   render() {
     return (`
-      <video controls id="mediaVideo" title="${this._video}">
+      <video controls id="mediaVideo" aria-label="${this._title}">
         <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
       </video>`);
   }
@@ -79,8 +81,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
   const { likes, title, id } = media;
   const lightBox = new LightBox(photographerMedia, id, photographerName);
   const mediaFactory = MediaFactory.getMediaType(media, photographerName);
-  // const test = mediaFactory ? console.log('image') : console.log('video');
-  // console.log(test);
+
   function getMediasCardDOM() {
     const h2 = document.createElement('h2');
     h2.textContent = title;

@@ -11,6 +11,7 @@ export default class Lightbox {
 
     this.lightBox = document.getElementById('lightbox-modal');
     this.body = document.querySelector('body');
+    this.main = document.querySelector('main');
   }
 
   render() {
@@ -21,6 +22,7 @@ export default class Lightbox {
     const lightboxContent = this.getMediasCardDOM(this.mediaCurrentID);
     lightBox.setAttribute('aria-hidden', 'false');
     this.body.classList.add('no-scroll');
+    this.main.style.display = 'none';
     this.contentLightBox.innerHTML = lightboxContent;
     const leftArrow = document.querySelector('.carousel__button--prev');
     const rightArrow = document.querySelector('.carousel__button--next');
@@ -47,6 +49,7 @@ export default class Lightbox {
     this.lightBox.classList.remove('active');
     this.lightBox.setAttribute('aria-hidden', 'true');
     this.body.classList.remove('no-scroll');
+    this.main.style.display = 'block';
   }
 
   /**
