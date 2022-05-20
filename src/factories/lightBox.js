@@ -88,7 +88,8 @@ export default class Lightbox {
       <div class="carrousel-media">
         ${mediaFactory}
         <h2>${this.filter[mediaCurrentID].title}</h2>
-      </div>`);
+        </div>
+        `);
   }
 
   /**
