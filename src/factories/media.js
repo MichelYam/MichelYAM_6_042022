@@ -89,10 +89,18 @@ export function photographerMediaList(photographerMedia, media, photographerName
     i.setAttribute('class', 'far fa-heart');
     i.setAttribute('tabindex', '0');
     i.setAttribute('aria-label', 'like');
-
+    i.addEventListener('click', () => {
+      addLike(id);
+    });
+    i.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        addLike(id);
+      }
+    });
     const span = document.createElement('span');
     span.textContent = likes;
     span.setAttribute('aria-label', 'likes');
+
     const mediaAssets = document.createElement('div');
     const mediaContent = mediaFactory;
     mediaAssets.innerHTML = mediaContent;
@@ -101,7 +109,11 @@ export function photographerMediaList(photographerMedia, media, photographerName
     mediaAssets.addEventListener('click', () => {
       lightBox.render();
     });
-
+    mediaAssets.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        lightBox.render();
+      }
+    });
     const iconVideo = document.createElement('i');
     iconVideo.setAttribute('class', 'fas fa-video');
     if (media.video) {
@@ -111,9 +123,6 @@ export function photographerMediaList(photographerMedia, media, photographerName
     const likeDiv = document.createElement('div');
     likeDiv.setAttribute('class', 'media-like');
     likeDiv.setAttribute('id', id);
-    likeDiv.addEventListener('click', () => {
-      addLike(id);
-    });
     likeDiv.append(span, i);
 
     const div = document.createElement('div');

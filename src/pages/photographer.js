@@ -78,8 +78,7 @@ const getUserMedias = async (photographerMedia, photographerName) => {
 // /**
 //  * get total of likes
 //  */
-// utiliser json reduce
-const getLikes = () => {
+export const getLikes = () => {
   const getElementDOM = document.getElementById('price');
   const elementDom = document.querySelectorAll('.media-like span');
   const array = [];
@@ -94,6 +93,7 @@ const getLikes = () => {
   getElementDOM.innerHTML = totalLike;
   return totalLike;
 };
+
 /**
  * display data of the user
  *
@@ -150,6 +150,7 @@ export async function addLike(mediaID) {
   let totalLike = getLikes();
   const likeDiv = document.querySelector(`div[id='${mediaID}'] span`);
   const articleSection = document.querySelector(`div[id='${mediaID}'] i`);
+  console.log(articleSection);
   if (articleSection.classList.contains('far')) {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) + 1;
     totalLike += 1;

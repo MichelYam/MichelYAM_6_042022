@@ -129,7 +129,7 @@ main {
     margin: 0;
     position: relative;
 }
-.photographer-media:focus{
+/* .photographer-media:focus{
     outline: 3px solid red;
 }
 .photographer_media_section .medial-container:focus{
@@ -142,7 +142,7 @@ header a:focus{
 .logo:focus{
 
     outline: 3px solid red;
-}
+} */
 .photographer_media_section .medial-container video, .photographer_media_section .medial-container img {
     width: 100%;
     border-radius: 10px;
