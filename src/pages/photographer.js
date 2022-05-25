@@ -150,7 +150,6 @@ export async function addLike(mediaID) {
   let totalLike = getLikes();
   const likeDiv = document.querySelector(`div[id='${mediaID}'] span`);
   const articleSection = document.querySelector(`div[id='${mediaID}'] i`);
-  console.log(articleSection);
   if (articleSection.classList.contains('far')) {
     likeDiv.textContent = parseInt(likeDiv.textContent, 10) + 1;
     totalLike += 1;
@@ -162,9 +161,6 @@ export async function addLike(mediaID) {
   }
   getElementDOM.innerHTML = totalLike;
 }
-// /**
-//  * close lightbox modal
-//  */
 
 async function init() {
   const userID = getIdOfUser();
