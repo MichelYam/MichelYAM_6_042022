@@ -40,8 +40,8 @@
     <div class="modal">
       <header class="modal-header">
         <h2 id="name">Contactez-moi<br></h2>
-        <img id="closeModal" src="assets/icons/close.svg" alt="icon close" onclick="closeModal()"
-          aria-label="Ferme le formulaire de contact" />
+        <img id="closeModal" src="assets/icons/close.svg" alt="Fermer le formulaire de contact" onclick="closeModal()"
+          aria-label="Ferme le formulaire de contact" tabindex="0" />
       </header>
       <form id="contactForm" action="photographer.html?id=${userInfo.id}" method="get">
         <div class="input-control">
@@ -64,7 +64,7 @@
           <textarea class="inputContent" id="message" name="message" rows="6"></textarea>
           <div class="error-message" id="message-error"></div>
         </div>
-        <button type="submit" class="contact_button" aria-label="OK, confirmer mon inscription">Envoyer</button>
+        <button type="submit" class="contact_button" aria-label="boutton de confirmation d'envoie">Envoyer</button>
       </form>
     </div>
   </div>

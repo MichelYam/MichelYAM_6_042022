@@ -65,7 +65,7 @@ export function photographerDetail(photographer) {
         <p>${photographer.tagline}</p>
         <div class="priceInfo"><span id="price"></span><i class="fas fa-heart"></i>${photographer.price}€/jour</div>
     </div>
-    <button class="contact_button" onclick="displayModal()" aria-label="Contact me">Contactez-moi</button>
+    <button class="contact_button" onclick="displayModal()" aria-label="Formulaire pour contacter le photographe">Contactez-moi</button>
     <div class="photographer-img">
         <img src="./assets/photographers/${photographer.portrait}" alt="${photographer.name}"/>
     </div>
@@ -89,7 +89,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
     const i = document.createElement('i');
     i.setAttribute('class', 'far fa-heart');
     i.setAttribute('tabindex', '0');
-    i.setAttribute('aria-label', 'like');
+    i.setAttribute('aria-label', 'boutton like');
     i.addEventListener('click', () => {
       addLike(id);
     });
@@ -100,7 +100,7 @@ export function photographerMediaList(photographerMedia, media, photographerName
     });
     const span = document.createElement('span');
     span.textContent = likes;
-    span.setAttribute('aria-label', 'likes');
+    span.setAttribute('aria-label', `${likes} like `);
 
     const mediaAssets = document.createElement('div');
     const mediaContent = mediaFactory;

@@ -12,9 +12,9 @@ export default function photographerFactory(data) {
                 <h2>${photographer.name}</h2>
             </a>
             <div>
-                <h3>${photographer.city}, ${photographer.country}</h3>
-                <p>${photographer.tagline}</p>
-                <p class="price">${photographer.price}€/jour</p>
+                <h3 aria-label="zone de travail ${photographer.city}, ${photographer.country}">${photographer.city}, ${photographer.country}</h3>
+                <p aria-label = "description ${photographer.tagline}">${photographer.tagline}</p>
+                <p class="price" aria-label="le cout est de  ${photographer.price}€ par jour">${photographer.price}€/jour</p>
             </div>
         </article>`
     )).join('');

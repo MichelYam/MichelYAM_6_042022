@@ -2,6 +2,7 @@ main {
     position: relative;
     height: 100%;
 }
+
 /* css block photographers informations */
 .photograph-header {
     display: flex;
@@ -49,17 +50,21 @@ main {
     margin-right: 60px;
     border-radius: 5px;
 }
-.priceInfo span{
+
+.priceInfo span {
     margin-right: 7px;
 }
-.priceInfo i{
+
+.priceInfo i {
     margin-right: 20px;
 }
-.photograph-header .photographer-img{
+
+.photograph-header .photographer-img {
     height: 200px;
     width: 200px;
 
 }
+
 .photograph-header .photographer-img img {
     height: 100%;
     width: 100%;
@@ -129,6 +134,7 @@ main {
     margin: 0;
     position: relative;
 }
+
 /* .photographer-media:focus{
     outline: 3px solid red;
 }
@@ -153,6 +159,7 @@ header a:focus{
 /* filter */
 
 .filter-media {
+    position: relative;
     margin: 20px 100px 40px;
     font-size: 17px;
 }
@@ -167,7 +174,7 @@ header a:focus{
     border-radius: 5px;
     background-color: #901C1C;
     color: #fff;
-    padding: 20px 25px;
+    padding: 15px 20px;
     outline: none;
 }
 
@@ -182,9 +189,11 @@ header a:focus{
     width: 100%;
     background-color: rgba(143, 142, 142, 0.4);
 }
+
 .no-scroll {
     overflow: hidden;
 }
+
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -198,10 +207,13 @@ header a:focus{
     cursor: pointer;
     transition: 0.5s ease-in-out;
 }
+
 .contact_button:hover, .contact_button:focus,
- #filter-select:hover,#filter-select:focus {
+#filter-select:hover, #filter-select:focus {
     background-color: #D3573C;
 }
+
+
 .modal {
     position: absolute;
     border-radius: 5px;
@@ -362,19 +374,21 @@ form input, form textarea {
 
 .lightbox .carrousel .caroussel-content .carrousel-media {
     max-width: 65%;
-    max-height: 65%; 
+    max-height: 65%;
 }
 
-.lightbox .carrousel .caroussel-content  img,
-.lightbox .carrousel .caroussel-content  video {
+.lightbox .carrousel .caroussel-content img,
+.lightbox .carrousel .caroussel-content video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.carrousel-media h2{
-    color:#901C1C;
+
+.carrousel-media h2 {
+    color: #901C1C;
     font-weight: 600;
 }
+
 .carousel__button--prev,
 .carousel__button--next {
     position: absolute;
@@ -419,9 +433,11 @@ form input, form textarea {
 .hidden {
     display: none;
 }
-.no-scroll{
+
+.no-scroll {
     overflow-y: hidden;
 }
+
 @keyframes modalAnimation {
     0% {
         opacity: 0;
