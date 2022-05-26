@@ -8,12 +8,20 @@ const modal = document.getElementById('contact-modal');
 // eslint-disable-next-line import/prefer-default-export
 async function displayModal() {
   modal.style.display = 'block';
+  console.log(document.getElementById('closeModal'));
   const name = document.getElementById('name');
   const userInfo = await getUserInfo();
+  // const close = document.getElementById('closeModal');
   name.setAttribute('aria-labelledby', `Contact me ${userInfo.name}`);
   modal.setAttribute('aria-hidden', 'false');
   body.classList.add('no-scroll');
   name.innerHTML = `Contactez-moi <br> ${userInfo.name}`;
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key == 'Escape') {
+      modal.style.display = 'none';
+    }
+  });
 }
 
 document.displayModal = displayModal;
@@ -134,9 +142,9 @@ contactForm.addEventListener('submit', (e) => {
   const validMessage = checkMessage();
 
   /*
-         after event form called,  call event listener if input change (value, select, checkbox)
-        recall fonction to check instantly the new value
-         */
+  after event form called,  call event listener if input change (value, select, checkbox)
+  recall fonction to check instantly the new value
+  */
   firstName.addEventListener('change', checkFirstName);
   lastName.addEventListener('change', checkLastName);
   email.addEventListener('change', checkEmail);
@@ -160,6 +168,9 @@ contactForm.addEventListener('submit', (e) => {
   return false;
 });
 
+/**
+ * close modal contact
+ */
 function closeModal() {
   modal.style.display = 'none';
   modal.setAttribute('aria-hidden', 'true');

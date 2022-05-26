@@ -150,7 +150,6 @@ export const getFilterCurrent = async () => {
       console.log(filter.value);
   }
   getUserMedias(filter, photographerName);
-  return filter;
 };
 
 filterSelect.addEventListener('change', getFilterCurrent);

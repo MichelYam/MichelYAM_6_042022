@@ -131,7 +131,6 @@ export function photographerMediaList(photographerMedia, media, photographerName
     const articleContainer = document.createElement('article');
     articleContainer.setAttribute('class', 'medial-container');
     articleContainer.setAttribute('data-id', `${id}`);
-    // articleContainer.setAttribute('tabindex', '0');
     articleContainer.append(mediaAssets, div);
 
     return articleContainer;

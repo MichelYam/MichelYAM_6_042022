@@ -67,7 +67,7 @@ export default class Lightbox {
 
   /**
  * handle navigation Lightbox (previous)
- * @returns
+ * @returns {id}
  */
   previousImage() {
     if (this.mediaCurrentID === 0) {
