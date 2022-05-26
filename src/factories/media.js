@@ -2,22 +2,21 @@
 /* eslint max-classes-per-file: ["error", 4] */
 import { addLike } from '../pages/photographer.js';
 import LightBox from './lightBox.js';
-// import { displayModal } from '../utils/contactForm.js';
 /**
  * handle media image
  */
 class MediaImage {
   constructor(media, photographerName) {
-    this._image = media.image;
-    this._title = media.title;
-    this._id = media.id;
-    this._photographerName = photographerName;
+    this.image = media.image;
+    this.title = media.title;
+    this.id = media.id;
+    this.photographerName = photographerName;
   }
 
   render() {
     return (`<img 
-            src="./assets/images/media/${this._photographerName}/${this._image}"
-            alt="${this._title}" />`);
+            src="./assets/images/media/${this.photographerName}/${this.image}"
+            alt="${this.title}" />`);
   }
 }
 /**
@@ -25,21 +24,20 @@ class MediaImage {
  */
 class MediaVideo {
   constructor(media, photographerName) {
-    this._video = media.video;
-    this._title = media.title;
-    this._id = media.id;
-    this._photographerName = photographerName;
+    this.video = media.video;
+    this.title = media.title;
+    this.id = media.id;
+    this.photographerName = photographerName;
   }
 
   render() {
     return (`
-      <video controls id="mediaVideo" aria-label="${this._title}">
-        <source src="./assets/images/media/${this._photographerName}/${this._video}" type="video/mp4" />
+      <video controls id="mediaVideo" aria-label="${this.title}">
+        <source src="./assets/images/media/${this.photographerName}/${this.video}" type="video/mp4" />
       </video>`);
   }
 }
 
-/* eslint no-underscore-dangle: 0 */
 /**
  * check if its video or image
  */

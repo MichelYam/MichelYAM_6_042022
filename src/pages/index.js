@@ -1,30 +1,27 @@
 import photographerFactory from '../factories/photographer.js';
-// import { PhotographerApi } from '../api/api';
+import PhotographerApi from '../api/api.js';
 
-// const photographersList = new PhotographerApi('./data/photographers.json');
-// console.log(photographersList);
-const getPhotographers = async () => {
-  // Penser à remplacer par les données récupérées dans le json
-  const data = await fetch('../../data/photographers.json')
-    .then((res) => res.json())
-    .catch((req) => { throw new Error(req); });
-  // et bien retourner le tableau photographers seulement une fois
-  return data;
+/**
+ * get all photographer from api
+ * @returns {array}
+ */
+const getPhotographersApi = async () => {
+  const photographerApi = new PhotographerApi('../../data/photographers.json');
+  const photographerData = await photographerApi.getPhotographers();
+  return photographerData;
 };
 
-// const getPhotographers = async () => {
-//   const photographerApi = new Api('../../data/photographers.json');
-//   const photographerData = await photographerApi.get();
-//   console.log(photographerData);
-// };
-
+/**
+ * return photographer HTML structure
+ * @param {array} photographers
+ */
 const displayData = async (photographers) => {
   const photographersSection = document.querySelector('.photographer_section');
   photographersSection.innerHTML = photographerFactory(photographers).getUserCardDOM();
 };
 
 const init = async () => {
-  const { photographers } = await getPhotographers();
+  const photographers = await getPhotographersApi();
   // Récupère les datas des photographes
   displayData(photographers);
 };

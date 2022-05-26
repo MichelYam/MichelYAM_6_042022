@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-// eslint-disable-next-line import/no-cycle
+/* eslint-disable import/no-cycle */
 import { MediaFactory } from './media.js';
 
 export default class Lightbox {
@@ -86,7 +85,10 @@ export default class Lightbox {
    * @returns htmlElement
    */
   getMediasCardDOM(mediaCurrentID) {
-    const mediaFactory = MediaFactory.getMediaType(this.filter[mediaCurrentID], this.photographerName);
+    const mediaFactory = MediaFactory.getMediaType(
+      this.filter[mediaCurrentID],
+      this.photographerName,
+    );
     return (`
       <div class="carrousel-media">
         ${mediaFactory}

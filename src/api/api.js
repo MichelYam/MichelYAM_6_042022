@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-export default class Api {
+export class Api {
   /**
    *
    * @param {string} url
@@ -15,7 +15,7 @@ export default class Api {
   }
 }
 
-export class PhotographerApi extends Api {
+export default class PhotographerApi extends Api {
   async getPhotographers() {
     return this.get()
       .then((res) => res.photographers);

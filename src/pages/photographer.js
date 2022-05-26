@@ -1,26 +1,34 @@
 /* eslint-disable import/no-cycle */
-/* eslint-disable no-param-reassign */
 import {
   photographerDetail, photographerMediaList,
 } from '../factories/media.js';
+import PhotographerApi from '../api/api.js';
 
 let filter = [];
 const filterSelect = document.getElementById('filter-select');
-/* eslint eqeqeq: ["error", "always"] */
+
 /**
- * get photographer and media data
- * @returns object
+ * get all photographer form api
+ * @returns
  */
-async function getPhotographers() {
-  const data = await fetch('../../data/photographers.json')
-    .then((res) => res.json())
-    .catch((req) => { throw new Error(req); });
-  return data;
-}
+const getPhotographersApi = async () => {
+  const photographerApi = new PhotographerApi('../../data/photographers.json');
+  const photographerData = await photographerApi.getPhotographers();
+  return photographerData;
+};
+/**
+ * get all media form api
+ * @returns {array}
+ */
+const getMediaApi = async () => {
+  const photographerApi = new PhotographerApi('../../data/photographers.json');
+  const mediaData = await photographerApi.getMedias();
+  return mediaData;
+};
 
 /**
  * get id form url
- * @returns id
+ * @returns {array}
  */
 const getIdOfUser = () => {
   const queryString = window.location.search;
@@ -30,10 +38,10 @@ const getIdOfUser = () => {
 };
 /**
  * get user info
- * @returns array
+ * @returns {array}
  */
 export default async function getUserInfo() {
-  const { photographers } = await getPhotographers();
+  const photographers = await getPhotographersApi();
   const userID = getIdOfUser();
   const photographerInfo = photographers.find((photographer) => photographer.id === userID);
   return photographerInfo;
@@ -54,19 +62,23 @@ displayUserData();
 /**
  * get all media from specific user
  * @param {id} userID
- * @returns array
+ * @returns {array}
  */
 const getUserMediaByID = async (userID) => {
-  const { media } = await getPhotographers();
+  const media = await getMediaApi();
   // eslint-disable-next-line eqeqeq
   const photographerMedia = media.filter((element) => element.photographerId == userID);
   return photographerMedia;
 };
-// get structure HTML of the user
+
+/**
+ * get structure HTML of the user
+ * @param {array} photographerMedia
+ * @param {string} photographerName
+ */
 const getUserMedias = async (photographerMedia, photographerName) => {
   const mediaSection = document.querySelector('.photographer_media_section');
   mediaSection.innerHTML = '';
-  // const lightBox = new LightBox(photographerMedia, id, photographerName);
   photographerMedia.forEach((media) => {
     const mediaModel = photographerMediaList(photographerMedia, media, photographerName);
     const mediaCardDOM = mediaModel.getMediasCardDOM();
@@ -75,9 +87,11 @@ const getUserMedias = async (photographerMedia, photographerName) => {
   const mediaVideo = document.querySelector('.photographer-media video');
   mediaVideo.removeAttribute('controls');
 };
-// /**
-//  * get total of likes
-//  */
+
+/**
+ * get all like media
+ * @returns {number}
+ */
 export const getLikes = () => {
   const getElementDOM = document.getElementById('price');
   const elementDom = document.querySelectorAll('.media-like span');
@@ -96,10 +110,9 @@ export const getLikes = () => {
 
 /**
  * display data of the user
- *
  */
 const displayUserMedias = async () => {
-  const { photographers } = await getPhotographers();
+  const photographers = await getPhotographersApi();
   const userID = getIdOfUser();
   const photographerName = photographers.find((element) => element.id === userID)
     .name.split(' ')[0].replace('-', ' ');
@@ -112,7 +125,7 @@ const displayUserMedias = async () => {
  * @returns {array}
  */
 export const getFilterCurrent = async () => {
-  const { photographers } = await getPhotographers();
+  const photographers = await getPhotographersApi();
   const userID = getIdOfUser();
   const photographerName = photographers.find((element) => element.id === userID)
     .name.split(' ')[0].replace('-', ' ');
