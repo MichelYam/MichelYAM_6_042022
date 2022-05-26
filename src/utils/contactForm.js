@@ -4,14 +4,13 @@ import getUserInfo from '../pages/photographer.js';
 
 const body = document.querySelector('body');
 const modal = document.getElementById('contact-modal');
-
-// eslint-disable-next-line import/prefer-default-export
+/**
+ * Display modal contact form
+ */
 async function displayModal() {
   modal.style.display = 'block';
-  console.log(document.getElementById('closeModal'));
   const name = document.getElementById('name');
   const userInfo = await getUserInfo();
-  // const close = document.getElementById('closeModal');
   name.setAttribute('aria-labelledby', `Contact me ${userInfo.name}`);
   modal.setAttribute('aria-hidden', 'false');
   body.classList.add('no-scroll');
